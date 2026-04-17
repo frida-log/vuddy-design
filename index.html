@@ -73,11 +73,11 @@
       align-items: center;
       gap: var(--gap-xs);
       padding: 3px var(--padding-4xs);
-      background: var(--surface-vuddy-highlight);
+      background: var(--surface-vuddy-primary);
       border-radius: var(--radius-xs);
       font-size: var(--font-size-caption-base);
       font-weight: 600;
-      color: var(--text-vuddy-primary);
+      color: var(--text-white-primary);
     }
     .topbar-badge span.dot {
       width: 6px; height: 6px;
@@ -136,7 +136,7 @@
       font-weight: 600;
       color: var(--text-primary);
       background: var(--surface-quaternary);
-      border-right: 2px solid var(--color-yellowgreen-500);
+      border-right: 2px solid var(--text-primary);
     }
     .nav-sub-link {
       display: block;
@@ -217,7 +217,7 @@
       align-items: center;
       gap: var(--gap-xs);
       background: var(--surface-vuddy-primary);
-      color: var(--text-vuddy-highlight);
+      color: var(--text-white-primary);
       padding: 4px var(--padding-xs);
       border-radius: var(--radius-4xl);
       font-size: var(--font-size-caption-base);
@@ -236,7 +236,7 @@
     }
     .hero-headline em {
       font-style: normal;
-      color: var(--color-yellowgreen-500);
+      color: var(--text-primary);
     }
     .hero-sub {
       font-size: var(--font-size-body-base);
@@ -369,7 +369,7 @@
     .spacing-bar-wrap { flex: 1; display: flex; align-items: center; gap: var(--gap-base); }
     .spacing-bar {
       height: 8px;
-      background: var(--surface-vuddy-highlight);
+      background: var(--surface-vuddy-primary);
       border-radius: var(--radius-4xl);
       flex-shrink: 0;
     }
@@ -546,8 +546,8 @@
     }
     .ds-input::placeholder { color: var(--text-placeholder); }
     .ds-input:focus {
-      border-color: var(--color-yellowgreen-500);
-      box-shadow: 0 0 0 3px rgba(172, 212, 0, 0.15);
+      border-color: var(--text-primary);
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
     }
     .ds-input.error { border-color: var(--line-danger); }
     .ds-input.success { border-color: var(--line-success); }
@@ -576,7 +576,7 @@
     .ds-toast-action {
       font-size: var(--font-size-body-xs);
       font-weight: 600;
-      color: var(--text-vuddy-highlight);
+      color: var(--text-white-primary);
       background: none;
       border: none;
       cursor: pointer;
@@ -620,7 +620,7 @@
     .ds-tab.active {
       font-weight: 600;
       color: var(--text-primary);
-      border-bottom-color: var(--color-yellowgreen-500);
+      border-bottom-color: var(--text-primary);
     }
     .ds-tab:hover:not(.active) { color: var(--text-secondary); }
 
@@ -848,7 +848,7 @@
       <!-- ════ HERO ════ -->
       <section class="hero" id="overview">
         <div class="hero-kicker">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M14.3536 4.95441C14.2504 4.95441 14.1616 5.02721 14.1408 5.12801L11.9016 16.2296H11.7016L9.8472 7.06961C9.8264 6.96881 9.7376 6.89601 9.6344 6.89601H5.1816C5.0424 6.89601 4.94 7.02481 4.9704 7.16001L7.5992 18.876C7.6216 18.9752 7.7096 19.0456 7.8104 19.0456H15.6872C15.788 19.0456 15.876 18.976 15.8984 18.8776L19.028 5.22001C19.0592 5.08401 18.956 4.95441 18.8168 4.95441H14.3528H14.3536Z" fill="#d0ff0c"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14.3536 4.95441C14.2504 4.95441 14.1616 5.02721 14.1408 5.12801L11.9016 16.2296H11.7016L9.8472 7.06961C9.8264 6.96881 9.7376 6.89601 9.6344 6.89601H5.1816C5.0424 6.89601 4.94 7.02481 4.9704 7.16001L7.5992 18.876C7.6216 18.9752 7.7096 19.0456 7.8104 19.0456H15.6872C15.788 19.0456 15.876 18.976 15.8984 18.8776L19.028 5.22001C19.0592 5.08401 18.956 4.95441 18.8168 4.95441H14.3528H14.3536Z" fill="#ffffff"/></svg>
           Vuddy Design System
         </div>
         <h1 class="hero-headline">
