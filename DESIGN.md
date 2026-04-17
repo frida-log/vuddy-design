@@ -241,6 +241,65 @@ Figma 컬렉션: `Size`
 
 ---
 
+## Typography
+
+Figma 컬렉션: `Font` / `Typography`  
+전체 공통 — `font-family: Pretendard`
+
+| Token | Size | Weight | Line Height |
+|-------|------|--------|-------------|
+| `display-base`         | 36px | Bold 700        | 46px |
+| `display-small`        | 32px | Bold 700        | 40px |
+| `heading-base`         | 28px | Bold 700        | 36px |
+| `heading-small`        | 24px | Bold 700        | 30px |
+| `title-base`           | 20px | Bold 700        | 26px |
+| `title-small`          | 18px | Bold 700        | 24px |
+| `body-base-accent`     | 16px | SemiBold 600    | 22px |
+| `body-base`            | 16px | Regular 400     | 22px |
+| `body-small-accent`    | 15px | SemiBold 600    | 20px |
+| `body-small`           | 15px | Regular 400     | 20px |
+| `body-xs-accent`       | 14px | SemiBold 600    | 20px |
+| `body-xs`              | 14px | Regular 400     | 20px |
+| `caption-base-accent`  | 12px | SemiBold 600    | 16px |
+| `caption-base`         | 12px | Regular 400     | 16px |
+| `caption-small-accent` | 10px | SemiBold 600    | 14px |
+| `caption-small`        | 10px | Regular 400     | 14px |
+| `caption-xs-accent`    |  9px | SemiBold 600    | 12px |
+| `caption-xs`           |  9px | Light 300       | 12px |
+
+CSS 변수: `--font-size-{token}` / `--line-height-{token}` (예: `--font-size-body-xs`, `--line-height-body-xs`)
+
+> `-accent` 접미사 = SemiBold 600 / 접미사 없음 = Regular 400 (display·heading·title은 항상 Bold 700)
+
+---
+
+## Effects
+
+Figma 컬렉션: `Effect`
+
+| Token | CSS 변수 | 용도 |
+|-------|---------|------|
+| `shadow-higher` | `--shadow-higher` | 모달·강조 플로팅 요소 |
+| `shadow-high`   | `--shadow-high`   | 드롭다운·바텀시트·셀렉트박스 |
+| `shadow-base`   | `--shadow-base`   | 버튼·입력창·토글 knob |
+| `shadow-low`    | `--shadow-low`    | 미세 부각 |
+
+```css
+--shadow-higher: 0px 0px 6px -2px var(--surface-dim-lowest),
+                 0px 4px 16px 0px var(--surface-dim-low);
+
+--shadow-high:   0px 4px 6px 0px var(--surface-dim-lowest),
+                 0px 10px 15px 0px var(--surface-dim-lower);
+
+--shadow-base:   0px 2px 4px 0px var(--surface-dim-lowest),
+                 0px 4px 6px 0px var(--surface-dim-lower);
+
+--shadow-low:    0px 1px 2px 0px var(--surface-dim-lowest),
+                 0px 1px 3px 0px var(--surface-dim-lower);
+```
+
+---
+
 ## Components
 
 컴포넌트 상세 명세는 `components/` 폴더를 참고하세요.

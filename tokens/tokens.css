@@ -358,4 +358,63 @@
   --image-4xl:   80px;
   --image-5xl:   96px;
   --image-6xl:   120px;
+
+  /* ──────────────────────────────────────────
+     TYPOGRAPHY — Font size & line-height scale
+     font-family: Pretendard (전체 공통)
+  ────────────────────────────────────────── */
+
+  /* Display */
+  --font-size-display-base:   36px;  --line-height-display-base:   46px;  /* Bold 700 */
+  --font-size-display-small:  32px;  --line-height-display-small:  40px;  /* Bold 700 */
+
+  /* Heading */
+  --font-size-heading-base:   28px;  --line-height-heading-base:   36px;  /* Bold 700 */
+  --font-size-heading-small:  24px;  --line-height-heading-small:  30px;  /* Bold 700 */
+
+  /* Title */
+  --font-size-title-base:     20px;  --line-height-title-base:     26px;  /* Bold 700 */
+  --font-size-title-small:    18px;  --line-height-title-small:    24px;  /* Bold 700 */
+
+  /* Body Base */
+  --font-size-body-base:      16px;  --line-height-body-base:      22px;  /* SemiBold 600 (accent) / Regular 400 */
+
+  /* Body Small */
+  --font-size-body-small:     15px;  --line-height-body-small:     20px;  /* SemiBold 600 (accent) / Regular 400 */
+
+  /* Body XS */
+  --font-size-body-xs:        14px;  --line-height-body-xs:        20px;  /* SemiBold 600 (accent) / Regular 400 */
+
+  /* Caption Base */
+  --font-size-caption-base:   12px;  --line-height-caption-base:   16px;  /* SemiBold 600 (accent) / Regular 400 */
+
+  /* Caption Small */
+  --font-size-caption-small:  10px;  --line-height-caption-small:  14px;  /* SemiBold 600 (accent) / Regular 400 */
+
+  /* Caption XS */
+  --font-size-caption-xs:      9px;  --line-height-caption-xs:     12px;  /* SemiBold 600 (accent) / Light 300 */
+
+  /* ──────────────────────────────────────────
+     EFFECTS — Shadows
+  ────────────────────────────────────────── */
+
+  /* shadow-higher: 강조 플로팅 (모달·오버레이) */
+  --shadow-higher:
+    0px 0px 6px -2px var(--surface-dim-lowest),
+    0px 4px 16px 0px var(--surface-dim-low);
+
+  /* shadow-high: 드롭다운·시트·카드 */
+  --shadow-high:
+    0px 4px 6px 0px var(--surface-dim-lowest),
+    0px 10px 15px 0px var(--surface-dim-lower);
+
+  /* shadow-base: 버튼·입력창·아바타 */
+  --shadow-base:
+    0px 2px 4px 0px var(--surface-dim-lowest),
+    0px 4px 6px 0px var(--surface-dim-lower);
+
+  /* shadow-low: 미세 부각 */
+  --shadow-low:
+    0px 1px 2px 0px var(--surface-dim-lowest),
+    0px 1px 3px 0px var(--surface-dim-lower);
 }
