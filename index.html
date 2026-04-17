@@ -369,7 +369,7 @@
     .spacing-bar-wrap { flex: 1; display: flex; align-items: center; gap: var(--gap-base); }
     .spacing-bar {
       height: 8px;
-      background: var(--surface-vuddy-primary);
+      background: var(--line-divider-primary);
       border-radius: var(--radius-4xl);
       flex-shrink: 0;
     }
@@ -856,9 +856,6 @@
       <a class="nav-sub-link" href="#colors-alias">— Alias Tokens</a>
       <a class="nav-link" href="#typography">Typography</a>
       <a class="nav-link" href="#spacing">Spacing</a>
-      <a class="nav-sub-link" href="#spacing-gap">— Gap</a>
-      <a class="nav-sub-link" href="#spacing-padding">— Padding</a>
-      <a class="nav-sub-link" href="#spacing-space">— Space</a>
       <a class="nav-link" href="#radius">Radius</a>
       <a class="nav-link" href="#effects">Effects</a>
       <a class="nav-link" href="#stroke">Stroke</a>
@@ -1059,54 +1056,15 @@
       <section class="section" id="spacing">
         <span class="section-eyebrow">Foundation</span>
         <h2 class="section-title">Spacing</h2>
-        <p class="section-desc">Gap, Padding, Space 세 가지 스케일로 구성됩니다. 각 용도에 맞는 토큰을 사용하세요.</p>
+        <p class="section-desc">통합 간격 스케일. 각 용도에 맞는 토큰을 사용하세요.</p>
 
-        <div id="spacing-gap">
-          <div class="subsection-title">Gap — Flex / Grid 간격</div>
-          <div class="spacing-list">
-            <div class="spacing-row"><span class="spacing-token">--gap-2xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px"></div><span class="spacing-val">2px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div><span class="spacing-val">4px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-small</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6px"></div><span class="spacing-val">6px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-base</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div><span class="spacing-val">8px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-large</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:10px"></div><span class="spacing-val">10px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div><span class="spacing-val">12px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-2xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div><span class="spacing-val">16px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-3xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px"></div><span class="spacing-val">20px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-4xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px"></div><span class="spacing-val">24px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-5xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px"></div><span class="spacing-val">32px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-6xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:40px"></div><span class="spacing-val">40px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--gap-7xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px"></div><span class="spacing-val">48px</span></div></div>
-          </div>
-        </div>
-
-        <div class="subsection" id="spacing-padding">
-          <div class="subsection-title">Padding — 컴포넌트 내부 여백</div>
-          <div class="spacing-list">
-            <div class="spacing-row"><span class="spacing-token">--padding-6xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px"></div><span class="spacing-val">2px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-5xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div><span class="spacing-val">4px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-4xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6px"></div><span class="spacing-val">6px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-3xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div><span class="spacing-val">8px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-2xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:10px"></div><span class="spacing-val">10px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div><span class="spacing-val">12px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-small</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div><span class="spacing-val">16px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-base</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px"></div><span class="spacing-val">20px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-large</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px"></div><span class="spacing-val">24px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px"></div><span class="spacing-val">32px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-2xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:40px"></div><span class="spacing-val">40px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-3xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px"></div><span class="spacing-val">48px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-4xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:56px"></div><span class="spacing-val">56px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--padding-5xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px"></div><span class="spacing-val">64px</span></div></div>
-          </div>
-        </div>
-
-        <div class="subsection" id="spacing-space">
-          <div class="subsection-title">Space — 통합 간격 스케일</div>
+        <div id="spacing-space">
           <div class="spacing-list">
             <div class="spacing-row"><span class="spacing-token">--space-none</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:1px;opacity:0.2"></div><span class="spacing-val">0px</span></div></div>
             <div class="spacing-row"><span class="spacing-token">--space-2xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px"></div><span class="spacing-val">2px</span></div></div>
             <div class="spacing-row"><span class="spacing-token">--space-xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div><span class="spacing-val">4px</span></div></div>
             <div class="spacing-row"><span class="spacing-token">--space-small</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6px"></div><span class="spacing-val">6px</span></div></div>
-            <div class="spacing-row"><span class="spacing-token">--space-base</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div><span class="spacing-val">8px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-base</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;background:var(--surface-vuddy-primary)"></div><span class="spacing-val">8px</span></div></div>
             <div class="spacing-row"><span class="spacing-token">--space-medium</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:10px"></div><span class="spacing-val">10px</span></div></div>
             <div class="spacing-row"><span class="spacing-token">--space-large</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div><span class="spacing-val">12px</span></div></div>
             <div class="spacing-row"><span class="spacing-token">--space-xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div><span class="spacing-val">16px</span></div></div>
