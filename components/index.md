@@ -5,13 +5,19 @@
 | Component | File | Figma | Status |
 |-----------|------|-------|--------|
 | Button | [Button.md](Button.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=2025-1478) | ✅ |
-| Input | — | — | 🔜 |
+| Input | [Input.md](Input.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1299) | ✅ |
 | Checkbox | — | — | 🔜 |
 | Toggle | — | — | 🔜 |
 | Radio | — | — | 🔜 |
 | Badge / Tag | — | — | 🔜 |
-| Avatar | — | — | 🔜 |
-| Toast | — | — | 🔜 |
+| Avatar | [Avatar.md](Avatar.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=1258-795) | ✅ |
+| Image / Thumbnail | [Image.md](Image.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=1258-795) | ✅ |
+| Dialog | [Dialog.md](Dialog.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1298) | ✅ |
+| Tip | [Tip.md](Tip.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1298) | ✅ |
+| Toast | [Toast.md](Toast.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1298) | ✅ |
+| Check / Caution | [Check.md](Check.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1298) | ✅ |
+| Empty Screen | [Empty.md](Empty.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1298) | ✅ |
+| Footer | [Footer.md](Footer.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=8321-1305) | ✅ |
 | BottomSheet | — | — | 🔜 |
 | Tab / Navigation Bar | — | — | 🔜 |
 | Card | — | — | 🔜 |
