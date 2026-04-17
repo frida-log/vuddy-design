@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vuddy Design System</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <link rel="stylesheet" href="tokens/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg: #ffffff;
+      --sidebar-width: 240px;
+      --topbar-height: 56px;
+      --content-max: 860px;
+      --transition: 0.15s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--page-bg);
+      color: var(--text-primary);
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--topbar-height);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--padding-large);
+      gap: var(--gap-xl);
+      z-index: 100;
+    }
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-base);
+      text-decoration: none;
+    }
+    .topbar-logo svg { width: 28px; height: 28px; flex-shrink: 0; }
+    .topbar-title {
+      font-size: var(--font-size-body-base);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
+    .topbar-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--line-divider-primary);
+    }
+    .topbar-sub {
+      font-size: var(--font-size-body-xs);
+      font-weight: 400;
+      color: var(--text-tertiary);
+    }
+    .topbar-badge {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--gap-xs);
+      padding: 3px var(--padding-4xs);
+      background: var(--surface-vuddy-highlight);
+      border-radius: var(--radius-xs);
+      font-size: var(--font-size-caption-base);
+      font-weight: 600;
+      color: var(--text-vuddy-primary);
+    }
+    .topbar-badge span.dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--color-yellowgreen-700);
+    }
+
+    /* ── Layout ── */
+    .layout {
+      display: flex;
+      padding-top: var(--topbar-height);
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed;
+      top: var(--topbar-height);
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      overflow-y: auto;
+      padding: var(--padding-large) 0 var(--padding-2xl);
+      border-right: var(--stroke-base) solid var(--line-divider-secondary);
+      background: var(--page-bg);
+      scrollbar-width: none;
+    }
+    .sidebar::-webkit-scrollbar { display: none; }
+
+    .nav-group { margin-bottom: var(--gap-4xl); }
+    .nav-group-label {
+      display: block;
+      padding: 0 var(--padding-base) var(--padding-4xs);
+      font-size: var(--font-size-caption-base);
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .nav-link {
+      display: block;
+      padding: var(--padding-4xs) var(--padding-base);
+      font-size: var(--font-size-body-xs);
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 0;
+      transition: color var(--transition), background var(--transition);
+      cursor: pointer;
+    }
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: var(--surface-tertiary);
+    }
+    .nav-link.active {
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--surface-quaternary);
+      border-right: 2px solid var(--color-yellowgreen-500);
+    }
+    .nav-sub-link {
+      display: block;
+      padding: 5px var(--padding-base) 5px calc(var(--padding-base) + 12px);
+      font-size: var(--font-size-caption-base);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-sub-link:hover { color: var(--text-primary); }
+
+    /* ── Main Content ── */
+    .main {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .content {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: var(--padding-2xl) var(--padding-2xl) var(--padding-2xl);
+    }
+
+    /* ── Section ── */
+    .section {
+      padding-top: var(--padding-2xl);
+      padding-bottom: var(--padding-3xl);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-size: var(--font-size-caption-base);
+      font-weight: 600;
+      color: var(--color-yellowgreen-700);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: var(--gap-base);
+    }
+    .section-title {
+      font-size: var(--font-size-heading-small);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: var(--line-height-heading-small);
+      margin-bottom: var(--gap-xl);
+      letter-spacing: -0.4px;
+    }
+    .section-desc {
+      font-size: var(--font-size-body-xs);
+      color: var(--text-secondary);
+      line-height: var(--line-height-body-xs);
+      max-width: 600px;
+      margin-bottom: var(--gap-5xl);
+    }
+
+    .subsection {
+      margin-top: var(--gap-5xl);
+    }
+    .subsection-title {
+      font-size: var(--font-size-title-small);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--gap-2xl);
+      padding-bottom: var(--gap-base);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: var(--padding-3xl) 0 var(--padding-3xl);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--gap-xs);
+      background: var(--surface-vuddy-primary);
+      color: var(--text-vuddy-highlight);
+      padding: 4px var(--padding-xs);
+      border-radius: var(--radius-4xl);
+      font-size: var(--font-size-caption-base);
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      margin-bottom: var(--gap-3xl);
+    }
+    .hero-kicker svg { width: 14px; height: 14px; }
+    .hero-headline {
+      font-size: var(--font-size-display-base);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: var(--line-height-display-base);
+      letter-spacing: -0.8px;
+      margin-bottom: var(--gap-xl);
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--color-yellowgreen-500);
+    }
+    .hero-sub {
+      font-size: var(--font-size-body-base);
+      color: var(--text-secondary);
+      line-height: var(--line-height-body-base);
+      max-width: 520px;
+      margin-bottom: var(--gap-5xl);
+    }
+    .hero-stats {
+      display: flex;
+      gap: var(--gap-5xl);
+      flex-wrap: wrap;
+    }
+    .hero-stat-num {
+      font-size: var(--font-size-heading-small);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: var(--font-size-caption-base);
+      color: var(--text-tertiary);
+      margin-top: var(--gap-xs);
+    }
+
+    /* ── Color Swatches ── */
+    .color-scale {
+      display: flex;
+      gap: 4px;
+      align-items: flex-end;
+      margin-bottom: var(--gap-3xl);
+    }
+    .color-swatch {
+      flex: 1;
+      min-width: 0;
+    }
+    .color-swatch-box {
+      height: 40px;
+      border-radius: var(--radius-xs);
+      border: var(--stroke-base) solid var(--line-img-outline);
+      transition: transform var(--transition);
+      cursor: default;
+    }
+    .color-swatch-box:hover { transform: scaleY(1.15); transform-origin: bottom; }
+    .color-swatch-name {
+      display: block;
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .color-row-label {
+      font-size: var(--font-size-caption-base);
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: var(--gap-base);
+      margin-top: var(--gap-3xl);
+    }
+    .color-row-label:first-child { margin-top: 0; }
+
+    /* Alias token table */
+    .alias-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--gap-base);
+      margin-bottom: var(--gap-4xl);
+    }
+    .alias-card {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-base);
+      padding: var(--padding-3xs) var(--padding-xs);
+      background: var(--surface-secondary);
+      border-radius: var(--radius-base);
+      border: var(--stroke-base) solid var(--line-divider-secondary);
+    }
+    .alias-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-xs);
+      flex-shrink: 0;
+      border: var(--stroke-base) solid var(--line-img-outline);
+    }
+    .alias-info { min-width: 0; }
+    .alias-token {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .alias-desc {
+      font-size: 9px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Typography ── */
+    .type-table { width: 100%; border-collapse: collapse; }
+    .type-table th {
+      text-align: left;
+      font-size: var(--font-size-caption-base);
+      font-weight: 600;
+      color: var(--text-tertiary);
+      padding: var(--padding-4xs) var(--padding-xs);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+    }
+    .type-table td {
+      padding: var(--padding-xs) var(--padding-xs);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+      vertical-align: middle;
+    }
+    .type-preview { color: var(--text-primary); }
+    .type-meta { font-size: var(--font-size-caption-base); color: var(--text-tertiary); white-space: nowrap; }
+    .type-token { font-size: 11px; font-weight: 600; color: var(--color-yellowgreen-700); font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    /* ── Spacing ── */
+    .spacing-list { display: flex; flex-direction: column; gap: var(--gap-base); }
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-xl);
+    }
+    .spacing-token { width: 130px; flex-shrink: 0; font-size: 11px; font-weight: 600; color: var(--color-yellowgreen-700); font-family: monospace; }
+    .spacing-bar-wrap { flex: 1; display: flex; align-items: center; gap: var(--gap-base); }
+    .spacing-bar {
+      height: 8px;
+      background: var(--surface-vuddy-highlight);
+      border-radius: var(--radius-4xl);
+      flex-shrink: 0;
+    }
+    .spacing-val { font-size: var(--font-size-caption-base); color: var(--text-tertiary); white-space: nowrap; }
+
+    /* ── Radius ── */
+    .radius-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--gap-xl);
+    }
+    .radius-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--gap-base);
+    }
+    .radius-box {
+      width: 72px;
+      height: 72px;
+      background: var(--surface-secondary);
+      border: var(--stroke-base) solid var(--line-divider-primary);
+    }
+    .radius-label { font-size: 10px; font-weight: 600; color: var(--text-tertiary); }
+    .radius-val { font-size: 9px; color: var(--text-tertiary); }
+
+    /* ── Shadows ── */
+    .shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--gap-3xl);
+    }
+    .shadow-card {
+      padding: var(--padding-large);
+      background: var(--surface-primary);
+      border-radius: var(--radius-large);
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-base);
+    }
+    .shadow-token { font-size: 11px; font-weight: 600; color: var(--color-yellowgreen-700); font-family: monospace; }
+    .shadow-desc { font-size: var(--font-size-caption-base); color: var(--text-tertiary); }
+
+    /* ── Components ── */
+    .comp-preview {
+      padding: var(--padding-large);
+      background: var(--surface-secondary);
+      border-radius: var(--radius-large);
+      border: var(--stroke-base) solid var(--line-divider-secondary);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--gap-xl);
+      margin-bottom: var(--gap-xl);
+    }
+    .comp-preview.dark {
+      background: var(--surface-vuddy-primary);
+    }
+    .comp-code {
+      padding: var(--padding-base);
+      background: var(--surface-quaternary);
+      border-radius: var(--radius-base);
+      font-family: 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
+      font-size: var(--font-size-caption-base);
+      color: var(--text-secondary);
+      margin-bottom: var(--gap-5xl);
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.6;
+    }
+
+    /* Button component */
+    .ds-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--gap-xs);
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition), opacity var(--transition);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    /* Solid sizes */
+    .ds-btn-xs { height: 22px; padding: 0 var(--padding-5xs); font-size: var(--font-size-caption-xs); border-radius: var(--radius-base); }
+    .ds-btn-sm { height: 28px; padding: 0 var(--padding-3xs); font-size: var(--font-size-caption-base); border-radius: var(--radius-base); }
+    .ds-btn-md { height: 36px; padding: 0 var(--padding-xs); font-size: var(--font-size-body-xs); border-radius: var(--radius-base); }
+    .ds-btn-lg { height: 44px; padding: 0 var(--padding-small); font-size: var(--font-size-body-xs); border-radius: var(--radius-large); }
+    .ds-btn-xl { height: 52px; padding: 0 var(--padding-small); font-size: var(--font-size-body-base); border-radius: var(--radius-large); }
+    /* Solid variants */
+    .ds-btn-primary { background: var(--button-primary); color: var(--text-white-primary); }
+    .ds-btn-primary:hover { background: var(--button-primary-hover); }
+    .ds-btn-secondary { background: var(--button-secondary); color: var(--text-white-primary); }
+    .ds-btn-secondary:hover { background: var(--button-secondary-hover); }
+    .ds-btn-tertiary { background: var(--button-tertiary); color: var(--text-primary); }
+    .ds-btn-tertiary:hover { background: var(--button-tertiary-hover); }
+    .ds-btn-white { background: var(--button-white); color: var(--text-vuddy-primary); box-shadow: var(--shadow-base); }
+    .ds-btn-white:hover { background: var(--button-white-hover); }
+    .ds-btn-disabled { background: var(--button-primary-disabled); color: var(--text-disabled); cursor: not-allowed; }
+    /* Outline variants */
+    .ds-btn-outline {
+      background: transparent;
+      border: var(--stroke-base) solid var(--button-primary);
+      color: var(--text-primary);
+    }
+    .ds-btn-outline-danger {
+      background: transparent;
+      border: var(--stroke-base) solid var(--line-danger);
+      color: var(--text-danger);
+    }
+
+    /* Tag component */
+    .ds-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--gap-2xs);
+      border-radius: var(--radius-xs);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .ds-tag-sm {
+      height: 20px;
+      padding: 0 var(--padding-4xs);
+      font-size: var(--font-size-caption-xs);
+      line-height: var(--line-height-caption-xs);
+    }
+    .ds-tag-md {
+      height: 24px;
+      padding: 0 var(--padding-4xs);
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+    }
+    .ds-tag-default { background: var(--surface-tertiary); color: var(--text-secondary); }
+    .ds-tag-brand { background: var(--surface-vuddy-highlight); color: var(--text-vuddy-primary); }
+    .ds-tag-dark { background: var(--surface-vuddy-primary); color: var(--text-white-primary); }
+    .ds-tag-success { background: var(--surface-success-lowest); color: var(--text-success); }
+    .ds-tag-danger { background: var(--surface-danger-lowest); color: var(--text-danger); }
+    .ds-tag-caution { background: var(--surface-caution-lowest); color: var(--text-caution); }
+    .ds-tag-sale { background: var(--surface-sale); color: var(--text-white-primary); }
+    .ds-tag-gradient {
+      background: linear-gradient(166deg, var(--color-teal-400), var(--color-blue-400), var(--color-purple-400));
+      color: var(--text-white-primary);
+    }
+
+    /* Input component */
+    .ds-input-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-xs);
+      flex: 1;
+      min-width: 220px;
+      max-width: 320px;
+    }
+    .ds-input-label {
+      font-size: var(--font-size-body-xs);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .ds-input {
+      height: 48px;
+      width: 100%;
+      border-radius: var(--radius-base);
+      border: var(--stroke-base) solid var(--line-container-outline);
+      padding: 0 var(--padding-base);
+      font-family: inherit;
+      font-size: var(--font-size-body-xs);
+      color: var(--text-primary);
+      background: var(--surface-primary);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .ds-input::placeholder { color: var(--text-placeholder); }
+    .ds-input:focus {
+      border-color: var(--color-yellowgreen-500);
+      box-shadow: 0 0 0 3px rgba(172, 212, 0, 0.15);
+    }
+    .ds-input.error { border-color: var(--line-danger); }
+    .ds-input.success { border-color: var(--line-success); }
+    .ds-input-hint {
+      font-size: var(--font-size-caption-base);
+      color: var(--text-tertiary);
+    }
+    .ds-input-hint.error { color: var(--text-danger); }
+    .ds-input-hint.success { color: var(--text-success); }
+
+    /* Toast component */
+    .ds-toast {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--gap-base);
+      padding: var(--padding-3xs) var(--padding-small);
+      border-radius: var(--radius-large);
+      min-height: 44px;
+      max-width: 340px;
+    }
+    .ds-toast-default { background: var(--surface-vuddy-primary); color: var(--text-white-primary); box-shadow: var(--shadow-higher); }
+    .ds-toast-success { background: var(--surface-success); color: var(--text-white-primary); box-shadow: var(--shadow-higher); }
+    .ds-toast-danger { background: var(--surface-danger); color: var(--text-white-primary); box-shadow: var(--shadow-higher); }
+    .ds-toast-caution { background: var(--surface-caution); color: var(--text-white-primary); box-shadow: var(--shadow-higher); }
+    .ds-toast-label { font-size: var(--font-size-body-xs); font-weight: 600; flex: 1; }
+    .ds-toast-action {
+      font-size: var(--font-size-body-xs);
+      font-weight: 600;
+      color: var(--text-vuddy-highlight);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    /* Tip component */
+    .ds-tip {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--gap-base);
+      padding: var(--padding-base);
+      border-radius: var(--radius-base);
+    }
+    .ds-tip-default { background: var(--surface-secondary); }
+    .ds-tip-success { background: var(--surface-success-lowest); }
+    .ds-tip-danger { background: var(--surface-danger-lowest); }
+    .ds-tip-caution { background: var(--surface-caution-lowest); }
+    .ds-tip-icon { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+    .ds-tip-text { font-size: var(--font-size-body-xs); color: var(--text-secondary); line-height: var(--line-height-body-xs); }
+    .ds-tip-text strong { font-weight: 600; color: var(--text-primary); }
+
+    /* Tab component */
+    .ds-tabs {
+      display: flex;
+      border-bottom: var(--stroke-base) solid var(--line-divider-primary);
+      gap: 0;
+    }
+    .ds-tab {
+      padding: var(--padding-3xs) var(--padding-small);
+      font-size: var(--font-size-body-xs);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color var(--transition), border-color var(--transition);
+      user-select: none;
+    }
+    .ds-tab.active {
+      font-weight: 600;
+      color: var(--text-primary);
+      border-bottom-color: var(--color-yellowgreen-500);
+    }
+    .ds-tab:hover:not(.active) { color: var(--text-secondary); }
+
+    .ds-pill-tabs {
+      display: inline-flex;
+      gap: var(--gap-xs);
+      background: var(--surface-tertiary);
+      padding: 3px;
+      border-radius: var(--radius-large);
+    }
+    .ds-pill-tab {
+      padding: var(--padding-5xs) var(--padding-xs);
+      font-size: var(--font-size-body-xs);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      border-radius: var(--radius-base);
+      cursor: pointer;
+      transition: all var(--transition);
+      user-select: none;
+    }
+    .ds-pill-tab.active {
+      background: var(--surface-primary);
+      font-weight: 600;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-base);
+    }
+
+    /* Icon grid */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      gap: var(--gap-base);
+    }
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--gap-xs);
+      padding: var(--padding-xs) var(--padding-4xs);
+      border-radius: var(--radius-base);
+      background: var(--surface-secondary);
+      border: var(--stroke-base) solid var(--line-divider-secondary);
+      transition: background var(--transition), border-color var(--transition);
+      cursor: default;
+    }
+    .icon-item:hover {
+      background: var(--surface-tertiary);
+      border-color: var(--line-divider-primary);
+    }
+    .icon-item img { width: 24px; height: 24px; }
+    .icon-item-name {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      text-align: center;
+      word-break: break-all;
+      line-height: 1.3;
+    }
+    .icon-filter {
+      display: flex;
+      gap: var(--gap-base);
+      flex-wrap: wrap;
+      margin-bottom: var(--gap-xl);
+    }
+    .icon-filter-btn {
+      padding: 4px var(--padding-xs);
+      font-size: var(--font-size-caption-base);
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--surface-secondary);
+      border: var(--stroke-base) solid var(--line-divider-secondary);
+      border-radius: var(--radius-4xl);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all var(--transition);
+    }
+    .icon-filter-btn.active,
+    .icon-filter-btn:hover {
+      background: var(--surface-vuddy-primary);
+      color: var(--text-white-primary);
+      border-color: var(--surface-vuddy-primary);
+    }
+
+    /* Code inline */
+    code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-yellowgreen-700);
+      background: var(--surface-secondary);
+      padding: 2px 5px;
+      border-radius: var(--radius-xs);
+    }
+
+    /* Token table */
+    .token-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-caption-base);
+    }
+    .token-table th {
+      text-align: left;
+      padding: var(--padding-4xs) var(--padding-xs);
+      font-weight: 600;
+      color: var(--text-tertiary);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+      background: var(--surface-secondary);
+    }
+    .token-table td {
+      padding: var(--padding-4xs) var(--padding-xs);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+      vertical-align: middle;
+    }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table tr:hover td { background: var(--surface-tertiary); }
+    .t-swatch {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: var(--radius-xs);
+      border: var(--stroke-base) solid var(--line-img-outline);
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    /* Stroke demo */
+    .stroke-list { display: flex; flex-direction: column; gap: var(--gap-xl); }
+    .stroke-row { display: flex; align-items: center; gap: var(--gap-xl); }
+    .stroke-line-wrap { flex: 1; }
+    .stroke-line { width: 100%; background: var(--surface-vuddy-primary); border-radius: var(--radius-4xl); }
+    .stroke-meta { width: 100px; flex-shrink: 0; font-size: var(--font-size-caption-base); color: var(--text-tertiary); }
+    .stroke-token-label { width: 140px; flex-shrink: 0; font-size: 11px; font-weight: 600; color: var(--color-yellowgreen-700); font-family: monospace; }
+
+    /* Footer */
+    .page-footer {
+      margin-left: var(--sidebar-width);
+      padding: var(--padding-2xl) var(--padding-2xl);
+      border-top: var(--stroke-base) solid var(--line-divider-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--gap-xl);
+    }
+    .footer-info { font-size: var(--font-size-caption-base); color: var(--text-tertiary); }
+    .footer-link {
+      font-size: var(--font-size-caption-base);
+      color: var(--text-tertiary);
+      text-decoration: none;
+    }
+    .footer-link:hover { color: var(--text-primary); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .content { padding: var(--padding-base); }
+      .page-footer { margin-left: 0; }
+      .hero-headline { font-size: var(--font-size-heading-base); line-height: var(--line-height-heading-base); }
+    }
+
+    /* Smooth scroll offset for sticky topbar */
+    [id] { scroll-margin-top: calc(var(--topbar-height) + 24px); }
+  </style>
+</head>
+<body>
+
+<!-- ════ TOPBAR ════ -->
+<header class="topbar">
+  <a class="topbar-logo" href="#overview">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14.3536 4.95441C14.2504 4.95441 14.1616 5.02721 14.1408 5.12801L11.9016 16.2296H11.7016L9.8472 7.06961C9.8264 6.96881 9.7376 6.89601 9.6344 6.89601H5.1816C5.0424 6.89601 4.94 7.02481 4.9704 7.16001L7.5992 18.876C7.6216 18.9752 7.7096 19.0456 7.8104 19.0456H15.6872C15.788 19.0456 15.876 18.976 15.8984 18.8776L19.028 5.22001C19.0592 5.08401 18.956 4.95441 18.8168 4.95441H14.3528H14.3536Z" fill="#111827"/>
+    </svg>
+    <span class="topbar-title">Vuddy</span>
+  </a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-sub">Design System</span>
+  <div class="topbar-badge">
+    <span class="dot"></span>
+    v1.0
+  </div>
+</header>
+
+<!-- ════ LAYOUT ════ -->
+<div class="layout">
+
+  <!-- ════ SIDEBAR ════ -->
+  <nav class="sidebar">
+    <div class="nav-group">
+      <span class="nav-group-label">시작하기</span>
+      <a class="nav-link active" href="#overview">개요</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group-label">Foundation</span>
+      <a class="nav-link" href="#colors">Colors</a>
+      <a class="nav-sub-link" href="#colors-primitives">— Primitives</a>
+      <a class="nav-sub-link" href="#colors-alias">— Alias Tokens</a>
+      <a class="nav-link" href="#typography">Typography</a>
+      <a class="nav-link" href="#spacing">Spacing</a>
+      <a class="nav-sub-link" href="#spacing-gap">— Gap</a>
+      <a class="nav-sub-link" href="#spacing-padding">— Padding</a>
+      <a class="nav-sub-link" href="#spacing-space">— Space</a>
+      <a class="nav-link" href="#radius">Radius</a>
+      <a class="nav-link" href="#effects">Effects</a>
+      <a class="nav-link" href="#stroke">Stroke</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group-label">Components</span>
+      <a class="nav-link" href="#buttons">Button</a>
+      <a class="nav-link" href="#tags">Tag</a>
+      <a class="nav-link" href="#inputs">Input</a>
+      <a class="nav-link" href="#tabs">Tab</a>
+      <a class="nav-link" href="#toasts">Toast</a>
+      <a class="nav-link" href="#tips">Tip</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group-label">Resources</span>
+      <a class="nav-link" href="#icons">Icons</a>
+    </div>
+  </nav>
+
+  <!-- ════ MAIN CONTENT ════ -->
+  <main class="main">
+    <div class="content">
+
+      <!-- ════ HERO ════ -->
+      <section class="hero" id="overview">
+        <div class="hero-kicker">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14.3536 4.95441C14.2504 4.95441 14.1616 5.02721 14.1408 5.12801L11.9016 16.2296H11.7016L9.8472 7.06961C9.8264 6.96881 9.7376 6.89601 9.6344 6.89601H5.1816C5.0424 6.89601 4.94 7.02481 4.9704 7.16001L7.5992 18.876C7.6216 18.9752 7.7096 19.0456 7.8104 19.0456H15.6872C15.788 19.0456 15.876 18.976 15.8984 18.8776L19.028 5.22001C19.0592 5.08401 18.956 4.95441 18.8168 4.95441H14.3528H14.3536Z" fill="#d0ff0c"/></svg>
+          Vuddy Design System
+        </div>
+        <h1 class="hero-headline">
+          일관된 경험을<br/>
+          <em>하나의 시스템</em>으로
+        </h1>
+        <p class="hero-sub">Vuddy 제품 전반의 디자인 언어를 정의하는 토큰, 컴포넌트, 패턴의 집합입니다. 디자이너·개발자·기획자가 동일한 근거로 협업합니다.</p>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">155</div>
+            <div class="hero-stat-label">Icons</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">18</div>
+            <div class="hero-stat-label">Components</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">80+</div>
+            <div class="hero-stat-label">Design Tokens</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">18</div>
+            <div class="hero-stat-label">Typography Styles</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ COLORS ════ -->
+      <section class="section" id="colors">
+        <span class="section-eyebrow">Foundation</span>
+        <h2 class="section-title">Colors</h2>
+        <p class="section-desc">화면 구현 시 항상 <strong>alias 토큰</strong>을 사용하세요. primitive 색상을 직접 사용하지 않습니다.</p>
+
+        <div id="colors-primitives">
+          <div class="subsection-title">Primitive — Gray</div>
+          <div class="color-scale">
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#030712"></div><span class="color-swatch-name">950</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#111827"></div><span class="color-swatch-name">900</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#1f2937"></div><span class="color-swatch-name">800</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#374151"></div><span class="color-swatch-name">700</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#4b5563"></div><span class="color-swatch-name">600</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#6b7280"></div><span class="color-swatch-name">500</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#9ca3af"></div><span class="color-swatch-name">400</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#bdc3cc"></div><span class="color-swatch-name">350</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#d1d5db"></div><span class="color-swatch-name">300</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#dcdfe3"></div><span class="color-swatch-name">250</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#e5e7eb"></div><span class="color-swatch-name">200</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#edeff2"></div><span class="color-swatch-name">100</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#f3f4f6"></div><span class="color-swatch-name">75</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#f9fafb"></div><span class="color-swatch-name">50</span></div>
+          </div>
+
+          <div class="color-row-label">YellowGreen — Vuddy Brand</div>
+          <div class="color-scale">
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#374208"></div><span class="color-swatch-name">900</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#596b0b"></div><span class="color-swatch-name">800</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#7a9600"></div><span class="color-swatch-name">700</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#92b400"></div><span class="color-swatch-name">600</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#acd400"></div><span class="color-swatch-name">500</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#bfec00"></div><span class="color-swatch-name">400</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#d0ff0c"></div><span class="color-swatch-name">300</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#e4ff73"></div><span class="color-swatch-name">200</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#eeffa7"></div><span class="color-swatch-name">100</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#f5ffcb"></div><span class="color-swatch-name">50</span></div>
+          </div>
+
+          <div class="color-row-label">Status Colors</div>
+          <div class="color-scale">
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#dc2626"></div><span class="color-swatch-name">red-600</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#ef4444"></div><span class="color-swatch-name">red-500</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#fef2f2"></div><span class="color-swatch-name">red-50</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#008055"></div><span class="color-swatch-name">grn-600</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#e3fcef"></div><span class="color-swatch-name">grn-50</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#eb8000"></div><span class="color-swatch-name">yel-600</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#fffae6"></div><span class="color-swatch-name">yel-50</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#234ee7"></div><span class="color-swatch-name">blu-600</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#ebf0ff"></div><span class="color-swatch-name">blu-50</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#008da6"></div><span class="color-swatch-name">teal-600</span></div>
+            <div class="color-swatch"><div class="color-swatch-box" style="background:#6551db"></div><span class="color-swatch-name">prpl-600</span></div>
+          </div>
+        </div>
+
+        <!-- Alias Tokens -->
+        <div class="subsection" id="colors-alias">
+          <div class="subsection-title">Alias — Text</div>
+          <table class="token-table">
+            <thead>
+              <tr><th>Token</th><th>미리보기</th><th>사용처</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>--text-primary</code></td><td style="color:var(--text-primary);font-weight:600">기본 텍스트 예시</td><td class="type-meta">기본 본문, 제목</td></tr>
+              <tr><td><code>--text-secondary</code></td><td style="color:var(--text-secondary)">보조 텍스트 예시</td><td class="type-meta">보조 설명, 레이블</td></tr>
+              <tr><td><code>--text-tertiary</code></td><td style="color:var(--text-tertiary)">3차 텍스트 예시</td><td class="type-meta">힌트, 메타 정보</td></tr>
+              <tr><td><code>--text-disabled</code></td><td style="color:var(--text-disabled)">비활성 텍스트</td><td class="type-meta">비활성 상태</td></tr>
+              <tr><td><code>--text-placeholder</code></td><td style="color:var(--text-placeholder)">플레이스홀더</td><td class="type-meta">입력창 플레이스홀더</td></tr>
+              <tr><td><code>--text-success</code></td><td style="color:var(--text-success);font-weight:600">성공 메시지</td><td class="type-meta">성공 상태 텍스트</td></tr>
+              <tr><td><code>--text-danger</code></td><td style="color:var(--text-danger);font-weight:600">오류 메시지</td><td class="type-meta">오류, 삭제 경고</td></tr>
+              <tr><td><code>--text-caution</code></td><td style="color:var(--text-caution);font-weight:600">경고 메시지</td><td class="type-meta">경고, 주의 알림</td></tr>
+              <tr><td><code>--text-vuddy-highlight</code></td><td style="color:var(--text-vuddy-highlight);font-weight:700;background:var(--surface-vuddy-primary);padding:2px 6px;border-radius:4px;display:inline-block">Vuddy 하이라이트</td><td class="type-meta">어두운 배경 위 강조</td></tr>
+            </tbody>
+          </table>
+
+          <div class="subsection-title" style="margin-top:var(--gap-4xl)">Alias — Surface</div>
+          <div class="alias-grid">
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-primary);border:1px solid #e5e7eb"></div><div class="alias-info"><div class="alias-token">--surface-primary</div><div class="alias-desc">기본 배경 (white)</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-secondary)"></div><div class="alias-info"><div class="alias-token">--surface-secondary</div><div class="alias-desc">보조 배경 gray-50</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-tertiary)"></div><div class="alias-info"><div class="alias-token">--surface-tertiary</div><div class="alias-desc">3차 배경 gray-75</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-quaternary)"></div><div class="alias-info"><div class="alias-token">--surface-quaternary</div><div class="alias-desc">4차 배경 gray-100</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-vuddy-primary)"></div><div class="alias-info"><div class="alias-token">--surface-vuddy-primary</div><div class="alias-desc">브랜드 배경 gray-900</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-vuddy-highlight)"></div><div class="alias-info"><div class="alias-token">--surface-vuddy-highlight</div><div class="alias-desc">하이라이트 yg-300</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-success-lowest)"></div><div class="alias-info"><div class="alias-token">--surface-success-lowest</div><div class="alias-desc">성공 최저 강도</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-danger-lowest)"></div><div class="alias-info"><div class="alias-token">--surface-danger-lowest</div><div class="alias-desc">오류 최저 강도</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-caution-lowest)"></div><div class="alias-info"><div class="alias-token">--surface-caution-lowest</div><div class="alias-desc">경고 최저 강도</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-sale)"></div><div class="alias-info"><div class="alias-token">--surface-sale</div><div class="alias-desc">세일 배지 red-500</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-dim)"></div><div class="alias-info"><div class="alias-token">--surface-dim</div><div class="alias-desc">딤 오버레이 50%</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--surface-dim-high)"></div><div class="alias-info"><div class="alias-token">--surface-dim-high</div><div class="alias-desc">강한 딤 70%</div></div></div>
+          </div>
+
+          <div class="subsection-title" style="margin-top:var(--gap-4xl)">Alias — Button</div>
+          <div class="alias-grid">
+            <div class="alias-card"><div class="alias-dot" style="background:var(--button-primary)"></div><div class="alias-info"><div class="alias-token">--button-primary</div><div class="alias-desc">기본 (gray-900)</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--button-primary-hover)"></div><div class="alias-info"><div class="alias-token">--button-primary-hover</div><div class="alias-desc">호버 (gray-950)</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--button-primary-disabled)"></div><div class="alias-info"><div class="alias-token">--button-primary-disabled</div><div class="alias-desc">비활성 (gray-75)</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--button-secondary)"></div><div class="alias-info"><div class="alias-token">--button-secondary</div><div class="alias-desc">보조 (gray-350)</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--button-tertiary);border:1px solid #e5e7eb"></div><div class="alias-info"><div class="alias-token">--button-tertiary</div><div class="alias-desc">3차 (gray-100)</div></div></div>
+            <div class="alias-card"><div class="alias-dot" style="background:var(--button-white);border:1px solid #e5e7eb"></div><div class="alias-info"><div class="alias-token">--button-white</div><div class="alias-desc">흰색 (white-100)</div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ TYPOGRAPHY ════ -->
+      <section class="section" id="typography">
+        <span class="section-eyebrow">Foundation</span>
+        <h2 class="section-title">Typography</h2>
+        <p class="section-desc">전체 공통 <code>font-family: Pretendard</code>. 18가지 타입 스케일을 목적에 따라 사용합니다.</p>
+
+        <table class="type-table">
+          <thead>
+            <tr>
+              <th style="width:120px">Token</th>
+              <th>Preview</th>
+              <th style="width:80px">Size</th>
+              <th style="width:80px">Weight</th>
+              <th style="width:80px">Line-H</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="type-token">display-base</td><td><span class="type-preview" style="font-size:var(--font-size-display-base);line-height:var(--line-height-display-base);font-weight:700;display:block">Display Base</span></td><td class="type-meta">36px</td><td class="type-meta">Bold 700</td><td class="type-meta">46px</td></tr>
+            <tr><td class="type-token">display-small</td><td><span class="type-preview" style="font-size:var(--font-size-display-small);line-height:var(--line-height-display-small);font-weight:700;display:block">Display Small</span></td><td class="type-meta">32px</td><td class="type-meta">Bold 700</td><td class="type-meta">40px</td></tr>
+            <tr><td class="type-token">heading-base</td><td><span class="type-preview" style="font-size:var(--font-size-heading-base);line-height:var(--line-height-heading-base);font-weight:700;display:block">Heading Base</span></td><td class="type-meta">28px</td><td class="type-meta">Bold 700</td><td class="type-meta">36px</td></tr>
+            <tr><td class="type-token">heading-small</td><td><span class="type-preview" style="font-size:var(--font-size-heading-small);line-height:var(--line-height-heading-small);font-weight:700;display:block">Heading Small</span></td><td class="type-meta">24px</td><td class="type-meta">Bold 700</td><td class="type-meta">30px</td></tr>
+            <tr><td class="type-token">title-base</td><td><span class="type-preview" style="font-size:var(--font-size-title-base);line-height:var(--line-height-title-base);font-weight:700;display:block">Title Base</span></td><td class="type-meta">20px</td><td class="type-meta">Bold 700</td><td class="type-meta">26px</td></tr>
+            <tr><td class="type-token">title-small</td><td><span class="type-preview" style="font-size:var(--font-size-title-small);line-height:var(--line-height-title-small);font-weight:700;display:block">Title Small</span></td><td class="type-meta">18px</td><td class="type-meta">Bold 700</td><td class="type-meta">24px</td></tr>
+            <tr><td class="type-token">body-base-accent</td><td><span class="type-preview" style="font-size:var(--font-size-body-base);line-height:var(--line-height-body-base);font-weight:600">Body Base Accent — 버튼 라벨, 중요 설명</span></td><td class="type-meta">16px</td><td class="type-meta">SemiBold 600</td><td class="type-meta">22px</td></tr>
+            <tr><td class="type-token">body-base</td><td><span class="type-preview" style="font-size:var(--font-size-body-base);line-height:var(--line-height-body-base);font-weight:400">Body Base — 일반 본문 텍스트입니다</span></td><td class="type-meta">16px</td><td class="type-meta">Regular 400</td><td class="type-meta">22px</td></tr>
+            <tr><td class="type-token">body-small-accent</td><td><span class="type-preview" style="font-size:var(--font-size-body-small);line-height:var(--line-height-body-small);font-weight:600">Body Small Accent — 강조 본문</span></td><td class="type-meta">15px</td><td class="type-meta">SemiBold 600</td><td class="type-meta">20px</td></tr>
+            <tr><td class="type-token">body-small</td><td><span class="type-preview" style="font-size:var(--font-size-body-small);line-height:var(--line-height-body-small);font-weight:400">Body Small — 보조 본문 텍스트입니다</span></td><td class="type-meta">15px</td><td class="type-meta">Regular 400</td><td class="type-meta">20px</td></tr>
+            <tr><td class="type-token">body-xs-accent</td><td><span class="type-preview" style="font-size:var(--font-size-body-xs);line-height:var(--line-height-body-xs);font-weight:600">Body XS Accent — 소형 강조 레이블</span></td><td class="type-meta">14px</td><td class="type-meta">SemiBold 600</td><td class="type-meta">20px</td></tr>
+            <tr><td class="type-token">body-xs</td><td><span class="type-preview" style="font-size:var(--font-size-body-xs);line-height:var(--line-height-body-xs);font-weight:400">Body XS — 기본 UI 텍스트, 설명 문장</span></td><td class="type-meta">14px</td><td class="type-meta">Regular 400</td><td class="type-meta">20px</td></tr>
+            <tr><td class="type-token">caption-base-accent</td><td><span class="type-preview" style="font-size:var(--font-size-caption-base);line-height:var(--line-height-caption-base);font-weight:600">Caption Base Accent — 태그, 배지</span></td><td class="type-meta">12px</td><td class="type-meta">SemiBold 600</td><td class="type-meta">16px</td></tr>
+            <tr><td class="type-token">caption-base</td><td><span class="type-preview" style="font-size:var(--font-size-caption-base);line-height:var(--line-height-caption-base);font-weight:400">Caption Base — 보조 설명, 메타 정보</span></td><td class="type-meta">12px</td><td class="type-meta">Regular 400</td><td class="type-meta">16px</td></tr>
+            <tr><td class="type-token">caption-small-accent</td><td><span class="type-preview" style="font-size:var(--font-size-caption-small);line-height:var(--line-height-caption-small);font-weight:600">Caption Small Accent — 미니 레이블</span></td><td class="type-meta">10px</td><td class="type-meta">SemiBold 600</td><td class="type-meta">14px</td></tr>
+            <tr><td class="type-token">caption-small</td><td><span class="type-preview" style="font-size:var(--font-size-caption-small);line-height:var(--line-height-caption-small);font-weight:400">Caption Small — 아주 작은 보조 정보</span></td><td class="type-meta">10px</td><td class="type-meta">Regular 400</td><td class="type-meta">14px</td></tr>
+            <tr><td class="type-token">caption-xs-accent</td><td><span class="type-preview" style="font-size:var(--font-size-caption-xs);line-height:var(--line-height-caption-xs);font-weight:600">Caption XS Accent — 최소 강조</span></td><td class="type-meta">9px</td><td class="type-meta">SemiBold 600</td><td class="type-meta">12px</td></tr>
+            <tr><td class="type-token">caption-xs</td><td><span class="type-preview" style="font-size:var(--font-size-caption-xs);line-height:var(--line-height-caption-xs);font-weight:300;color:var(--text-tertiary)">Caption XS — 최소 보조 텍스트</span></td><td class="type-meta">9px</td><td class="type-meta">Light 300</td><td class="type-meta">12px</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ════ SPACING ════ -->
+      <section class="section" id="spacing">
+        <span class="section-eyebrow">Foundation</span>
+        <h2 class="section-title">Spacing</h2>
+        <p class="section-desc">Gap, Padding, Space 세 가지 스케일로 구성됩니다. 각 용도에 맞는 토큰을 사용하세요.</p>
+
+        <div id="spacing-gap">
+          <div class="subsection-title">Gap — Flex / Grid 간격</div>
+          <div class="spacing-list">
+            <div class="spacing-row"><span class="spacing-token">--gap-2xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px"></div><span class="spacing-val">2px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div><span class="spacing-val">4px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-small</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6px"></div><span class="spacing-val">6px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-base</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div><span class="spacing-val">8px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-large</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:10px"></div><span class="spacing-val">10px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div><span class="spacing-val">12px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-2xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div><span class="spacing-val">16px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-3xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px"></div><span class="spacing-val">20px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-4xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px"></div><span class="spacing-val">24px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-5xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px"></div><span class="spacing-val">32px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-6xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:40px"></div><span class="spacing-val">40px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--gap-7xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px"></div><span class="spacing-val">48px</span></div></div>
+          </div>
+        </div>
+
+        <div class="subsection" id="spacing-padding">
+          <div class="subsection-title">Padding — 컴포넌트 내부 여백</div>
+          <div class="spacing-list">
+            <div class="spacing-row"><span class="spacing-token">--padding-6xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px"></div><span class="spacing-val">2px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-5xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div><span class="spacing-val">4px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-4xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6px"></div><span class="spacing-val">6px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-3xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div><span class="spacing-val">8px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-2xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:10px"></div><span class="spacing-val">10px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div><span class="spacing-val">12px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-small</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div><span class="spacing-val">16px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-base</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px"></div><span class="spacing-val">20px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-large</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px"></div><span class="spacing-val">24px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px"></div><span class="spacing-val">32px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-2xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:40px"></div><span class="spacing-val">40px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-3xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px"></div><span class="spacing-val">48px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-4xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:56px"></div><span class="spacing-val">56px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--padding-5xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px"></div><span class="spacing-val">64px</span></div></div>
+          </div>
+        </div>
+
+        <div class="subsection" id="spacing-space">
+          <div class="subsection-title">Space — 통합 간격 스케일</div>
+          <div class="spacing-list">
+            <div class="spacing-row"><span class="spacing-token">--space-none</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:1px;opacity:0.2"></div><span class="spacing-val">0px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-2xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px"></div><span class="spacing-val">2px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div><span class="spacing-val">4px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-small</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6px"></div><span class="spacing-val">6px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-base</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div><span class="spacing-val">8px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-medium</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:10px"></div><span class="spacing-val">10px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-large</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div><span class="spacing-val">12px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div><span class="spacing-val">16px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-2xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px"></div><span class="spacing-val">20px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-3xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px"></div><span class="spacing-val">24px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-4xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px"></div><span class="spacing-val">32px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-5xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:40px"></div><span class="spacing-val">40px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-6xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px"></div><span class="spacing-val">48px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-7xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:56px"></div><span class="spacing-val">56px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-8xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px"></div><span class="spacing-val">64px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-9xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:72px"></div><span class="spacing-val">72px</span></div></div>
+            <div class="spacing-row"><span class="spacing-token">--space-10xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:80px"></div><span class="spacing-val">80px</span></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ RADIUS ════ -->
+      <section class="section" id="radius">
+        <span class="section-eyebrow">Foundation</span>
+        <h2 class="section-title">Radius</h2>
+        <p class="section-desc">9단계의 radius 토큰으로 컴포넌트의 모서리 처리를 일관되게 합니다.</p>
+        <div class="radius-grid">
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-2xs)"></div><div class="radius-label">--radius-2xs</div><div class="radius-val">2px</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-xs)"></div><div class="radius-label">--radius-xs</div><div class="radius-val">4px — 소형 태그</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-small)"></div><div class="radius-label">--radius-small</div><div class="radius-val">6px</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-base)"></div><div class="radius-label">--radius-base</div><div class="radius-val">8px — 기본 버튼</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-large)"></div><div class="radius-label">--radius-large</div><div class="radius-val">12px — 대형 버튼</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-xl)"></div><div class="radius-label">--radius-xl</div><div class="radius-val">16px — 카드</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-2xl)"></div><div class="radius-label">--radius-2xl</div><div class="radius-val">24px — 바텀시트</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-3xl)"></div><div class="radius-label">--radius-3xl</div><div class="radius-val">32px</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:var(--radius-4xl)"></div><div class="radius-label">--radius-4xl</div><div class="radius-val">40px — pill</div></div>
+        </div>
+      </section>
+
+      <!-- ════ EFFECTS ════ -->
+      <section class="section" id="effects">
+        <span class="section-eyebrow">Foundation</span>
+        <h2 class="section-title">Effects</h2>
+        <p class="section-desc">4단계 그림자로 컴포넌트의 elevation을 표현합니다.</p>
+        <div class="shadow-grid">
+          <div class="shadow-card" style="box-shadow:var(--shadow-low)">
+            <div class="shadow-token">--shadow-low</div>
+            <div class="shadow-desc">미세 부각</div>
+          </div>
+          <div class="shadow-card" style="box-shadow:var(--shadow-base)">
+            <div class="shadow-token">--shadow-base</div>
+            <div class="shadow-desc">버튼·입력창·아바타</div>
+          </div>
+          <div class="shadow-card" style="box-shadow:var(--shadow-high)">
+            <div class="shadow-token">--shadow-high</div>
+            <div class="shadow-desc">드롭다운·바텀시트·카드</div>
+          </div>
+          <div class="shadow-card" style="box-shadow:var(--shadow-higher)">
+            <div class="shadow-token">--shadow-higher</div>
+            <div class="shadow-desc">모달·강조 플로팅 요소</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ STROKE ════ -->
+      <section class="section" id="stroke">
+        <span class="section-eyebrow">Foundation</span>
+        <h2 class="section-title">Stroke</h2>
+        <p class="section-desc">선 굵기를 5단계 토큰으로 관리합니다.</p>
+        <div class="stroke-list">
+          <div class="stroke-row"><span class="stroke-token-label">--stroke-small</span><div class="stroke-line-wrap"><div class="stroke-line" style="height:0.5px"></div></div><span class="stroke-meta">0.5px — 미세 경계</span></div>
+          <div class="stroke-row"><span class="stroke-token-label">--stroke-base</span><div class="stroke-line-wrap"><div class="stroke-line" style="height:1px"></div></div><span class="stroke-meta">1px — 기본 테두리</span></div>
+          <div class="stroke-row"><span class="stroke-token-label">--stroke-large</span><div class="stroke-line-wrap"><div class="stroke-line" style="height:2px"></div></div><span class="stroke-meta">2px — 강조 테두리</span></div>
+          <div class="stroke-row"><span class="stroke-token-label">--stroke-xl</span><div class="stroke-line-wrap"><div class="stroke-line" style="height:3px"></div></div><span class="stroke-meta">3px — 두꺼운 선</span></div>
+          <div class="stroke-row"><span class="stroke-token-label">--stroke-2xl</span><div class="stroke-line-wrap"><div class="stroke-line" style="height:4px"></div></div><span class="stroke-meta">4px — 최대 두께</span></div>
+        </div>
+      </section>
+
+      <!-- ════ BUTTON ════ -->
+      <section class="section" id="buttons">
+        <span class="section-eyebrow">Components</span>
+        <h2 class="section-title">Button</h2>
+        <p class="section-desc">Solid·Outline 두 가지 타입, 4가지 variant, 5가지 크기. 한 화면에 Solid Primary는 1개만 사용합니다.</p>
+
+        <div class="subsection-title">Solid — Primary</div>
+        <div class="comp-preview">
+          <button class="ds-btn ds-btn-primary ds-btn-xs">XSmall</button>
+          <button class="ds-btn ds-btn-primary ds-btn-sm">Small</button>
+          <button class="ds-btn ds-btn-primary ds-btn-md">Medium</button>
+          <button class="ds-btn ds-btn-primary ds-btn-lg">Large</button>
+          <button class="ds-btn ds-btn-primary ds-btn-xl">XLarge</button>
+        </div>
+
+        <div class="subsection-title">Solid — Variants</div>
+        <div class="comp-preview">
+          <button class="ds-btn ds-btn-primary ds-btn-md">Primary</button>
+          <button class="ds-btn ds-btn-secondary ds-btn-md">Secondary</button>
+          <button class="ds-btn ds-btn-tertiary ds-btn-md">Tertiary</button>
+          <button class="ds-btn ds-btn-disabled ds-btn-md" disabled>Disabled</button>
+        </div>
+        <div class="comp-preview dark">
+          <button class="ds-btn ds-btn-white ds-btn-md">White</button>
+        </div>
+
+        <div class="subsection-title">Outline</div>
+        <div class="comp-preview">
+          <button class="ds-btn ds-btn-outline ds-btn-md">Outline Default</button>
+          <button class="ds-btn ds-btn-outline-danger ds-btn-md">Outline Danger</button>
+        </div>
+
+        <pre class="comp-code">/* Primary Button */
+background: var(--button-primary);           /* gray-900 */
+color:      var(--text-white-primary);
+border-radius: var(--radius-base);           /* md size */
+
+/* Hover state */
+background: var(--button-primary-hover);     /* gray-950 */
+
+/* Danger Outline */
+border: var(--stroke-base) solid var(--line-danger);
+color:  var(--text-danger);</pre>
+      </section>
+
+      <!-- ════ TAG ════ -->
+      <section class="section" id="tags">
+        <span class="section-eyebrow">Components</span>
+        <h2 class="section-title">Tag</h2>
+        <p class="section-desc">Small(20px)·Medium(24px) 두 사이즈, 11가지 스타일 variant. 아이콘은 선택 사항이며, 아이콘 단독 사용은 금지합니다.</p>
+
+        <div class="subsection-title">Medium (24px)</div>
+        <div class="comp-preview">
+          <span class="ds-tag ds-tag-md ds-tag-default">기본 태그</span>
+          <span class="ds-tag ds-tag-md ds-tag-brand">Brand</span>
+          <span class="ds-tag ds-tag-md ds-tag-dark">Dark</span>
+          <span class="ds-tag ds-tag-md ds-tag-success">완료</span>
+          <span class="ds-tag ds-tag-md ds-tag-danger">오류</span>
+          <span class="ds-tag ds-tag-md ds-tag-caution">주의</span>
+          <span class="ds-tag ds-tag-md ds-tag-sale">SALE</span>
+          <span class="ds-tag ds-tag-md ds-tag-gradient">NEW</span>
+        </div>
+
+        <div class="subsection-title">Small (20px)</div>
+        <div class="comp-preview">
+          <span class="ds-tag ds-tag-sm ds-tag-default">기본</span>
+          <span class="ds-tag ds-tag-sm ds-tag-brand">Brand</span>
+          <span class="ds-tag ds-tag-sm ds-tag-dark">Dark</span>
+          <span class="ds-tag ds-tag-sm ds-tag-success">완료</span>
+          <span class="ds-tag ds-tag-sm ds-tag-danger">오류</span>
+          <span class="ds-tag ds-tag-sm ds-tag-caution">주의</span>
+          <span class="ds-tag ds-tag-sm ds-tag-sale">SALE</span>
+          <span class="ds-tag ds-tag-sm ds-tag-gradient">NEW</span>
+        </div>
+
+        <pre class="comp-code">/* Tag — Brand Highlight */
+background:    var(--surface-vuddy-highlight);  /* yellowgreen-300 */
+color:         var(--text-vuddy-primary);        /* gray-900 */
+border-radius: var(--radius-xs);                /* 4px */
+height:        24px;  /* md */  20px; /* sm */
+
+/* Tag — Gradient */
+background: linear-gradient(166deg,
+  var(--color-teal-400),
+  var(--color-blue-400),
+  var(--color-purple-400));</pre>
+      </section>
+
+      <!-- ════ INPUT ════ -->
+      <section class="section" id="inputs">
+        <span class="section-eyebrow">Components</span>
+        <h2 class="section-title">Input</h2>
+        <p class="section-desc">텍스트 입력 컴포넌트의 기본·오류·성공·비활성 상태입니다.</p>
+
+        <div class="comp-preview" style="align-items:flex-start;flex-wrap:wrap">
+          <div class="ds-input-wrap">
+            <label class="ds-input-label">기본 상태</label>
+            <input class="ds-input" type="text" placeholder="텍스트를 입력하세요" />
+            <span class="ds-input-hint">도움말 텍스트</span>
+          </div>
+          <div class="ds-input-wrap">
+            <label class="ds-input-label">오류 상태</label>
+            <input class="ds-input error" type="text" value="잘못된 입력값" />
+            <span class="ds-input-hint error">이 형식은 올바르지 않습니다</span>
+          </div>
+          <div class="ds-input-wrap">
+            <label class="ds-input-label">성공 상태</label>
+            <input class="ds-input success" type="text" value="올바른 입력값" />
+            <span class="ds-input-hint success">사용 가능한 값입니다</span>
+          </div>
+          <div class="ds-input-wrap">
+            <label class="ds-input-label" style="color:var(--text-disabled)">비활성 상태</label>
+            <input class="ds-input" type="text" placeholder="비활성" disabled style="background:var(--surface-secondary);color:var(--text-disabled);cursor:not-allowed" />
+          </div>
+        </div>
+
+        <pre class="comp-code">/* Default */
+border: var(--stroke-base) solid var(--line-container-outline);
+border-radius: var(--radius-base);
+
+/* Error */
+border-color: var(--line-danger);
+
+/* Success */
+border-color: var(--line-success);</pre>
+      </section>
+
+      <!-- ════ TAB ════ -->
+      <section class="section" id="tabs">
+        <span class="section-eyebrow">Components</span>
+        <h2 class="section-title">Tab</h2>
+        <p class="section-desc">Underline Tab과 Pill/Segmented 두 가지 스타일로 콘텐츠를 분류합니다.</p>
+
+        <div class="subsection-title">Underline Tab</div>
+        <div class="comp-preview" style="flex-direction:column;align-items:stretch">
+          <div class="ds-tabs">
+            <div class="ds-tab active">전체</div>
+            <div class="ds-tab">판매중</div>
+            <div class="ds-tab">예약중</div>
+            <div class="ds-tab">판매완료</div>
+          </div>
+        </div>
+
+        <div class="subsection-title">Pill / Segmented Tab</div>
+        <div class="comp-preview">
+          <div class="ds-pill-tabs">
+            <div class="ds-pill-tab active">최신순</div>
+            <div class="ds-pill-tab">인기순</div>
+            <div class="ds-pill-tab">가격순</div>
+          </div>
+        </div>
+
+        <pre class="comp-code">/* Underline Tab — Active */
+border-bottom: 2px solid var(--color-yellowgreen-500);
+font-weight: 600;
+color: var(--text-primary);
+
+/* Pill Tab — Container */
+background: var(--surface-tertiary);
+border-radius: var(--radius-large);
+
+/* Pill Tab — Active */
+background: var(--surface-primary);
+box-shadow: var(--shadow-base);</pre>
+      </section>
+
+      <!-- ════ TOAST ════ -->
+      <section class="section" id="toasts">
+        <span class="section-eyebrow">Components</span>
+        <h2 class="section-title">Toast</h2>
+        <p class="section-desc">짧은 피드백 메시지를 화면 하단에 표시합니다. 자동으로 사라지며, 선택적으로 액션 버튼을 제공합니다.</p>
+
+        <div class="comp-preview" style="flex-direction:column;align-items:flex-start;gap:var(--gap-base)">
+          <div class="ds-toast ds-toast-default">
+            <span class="ds-toast-label">상품이 찜 목록에 추가되었습니다</span>
+            <button class="ds-toast-action">보기</button>
+          </div>
+          <div class="ds-toast ds-toast-success">
+            <span class="ds-toast-label">거래가 완료되었습니다</span>
+          </div>
+          <div class="ds-toast ds-toast-danger">
+            <span class="ds-toast-label">오류가 발생했습니다. 다시 시도해주세요</span>
+          </div>
+          <div class="ds-toast ds-toast-caution">
+            <span class="ds-toast-label">인터넷 연결이 불안정합니다</span>
+          </div>
+        </div>
+
+        <pre class="comp-code">/* Default Toast */
+background:    var(--surface-vuddy-primary);  /* gray-900 */
+color:         var(--text-white-primary);
+border-radius: var(--radius-large);
+box-shadow:    var(--shadow-higher);
+
+/* Action button color */
+color: var(--text-vuddy-highlight);           /* yellowgreen-300 */</pre>
+      </section>
+
+      <!-- ════ TIP ════ -->
+      <section class="section" id="tips">
+        <span class="section-eyebrow">Components</span>
+        <h2 class="section-title">Tip / Caution</h2>
+        <p class="section-desc">콘텐츠 내부에 인라인으로 삽입되는 안내·경고 메시지입니다.</p>
+
+        <div class="comp-preview" style="flex-direction:column;align-items:stretch;gap:var(--gap-base)">
+          <div class="ds-tip ds-tip-default">
+            <svg class="ds-tip-icon" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12 10.5C12.4142 10.5 12.75 10.8358 12.75 11.25V16.5C12.75 16.9142 12.4142 17.25 12 17.25C11.5858 17.25 11.25 16.9142 11.25 16.5V11.25C11.25 10.8358 11.5858 10.5 12 10.5ZM12 9C12.4142 9 12.75 8.66421 12.75 8.25C12.75 7.83579 12.4142 7.5 12 7.5C11.5858 7.5 11.25 7.83579 11.25 8.25C11.25 8.66421 11.5858 9 12 9Z" fill="currentColor" style="color:var(--icon-secondary)"/></svg>
+            <p class="ds-tip-text"><strong>안내:</strong> 거래 전 상대방의 프로필을 확인하는 것을 권장합니다.</p>
+          </div>
+          <div class="ds-tip ds-tip-success">
+            <svg class="ds-tip-icon" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM16.2803 9.96967C16.5732 10.2626 16.5732 10.7374 16.2803 11.0303L11.0303 16.2803C10.7374 16.5732 10.2626 16.5732 9.96967 16.2803L7.71967 14.0303C7.42678 13.7374 7.42678 13.2626 7.71967 12.9697C8.01256 12.6768 8.48744 12.6768 8.78033 12.9697L10.5 14.6893L15.2197 9.96967C15.5126 9.67678 15.9874 9.67678 16.2803 9.96967Z" fill="currentColor" style="color:var(--icon-success)"/></svg>
+            <p class="ds-tip-text" style="color:var(--text-success)"><strong>성공:</strong> 인증이 완료되었습니다. 이제 거래를 시작할 수 있습니다.</p>
+          </div>
+          <div class="ds-tip ds-tip-danger">
+            <svg class="ds-tip-icon" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12 10.5C12.4142 10.5 12.75 10.8358 12.75 11.25V16.5C12.75 16.9142 12.4142 17.25 12 17.25C11.5858 17.25 11.25 16.9142 11.25 16.5V11.25C11.25 10.8358 11.5858 10.5 12 10.5ZM12 9C12.4142 9 12.75 8.66421 12.75 8.25C12.75 7.83579 12.4142 7.5 12 7.5C11.5858 7.5 11.25 7.83579 11.25 8.25C11.25 8.66421 11.5858 9 12 9Z" fill="currentColor" style="color:var(--icon-danger)"/></svg>
+            <p class="ds-tip-text" style="color:var(--text-danger)"><strong>오류:</strong> 해당 상품은 이미 판매 완료된 상품입니다.</p>
+          </div>
+          <div class="ds-tip ds-tip-caution">
+            <svg class="ds-tip-icon" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12 10.5C12.4142 10.5 12.75 10.8358 12.75 11.25V16.5C12.75 16.9142 12.4142 17.25 12 17.25C11.5858 17.25 11.25 16.9142 11.25 16.5V11.25C11.25 10.8358 11.5858 10.5 12 10.5ZM12 9C12.4142 9 12.75 8.66421 12.75 8.25C12.75 7.83579 12.4142 7.5 12 7.5C11.5858 7.5 11.25 7.83579 11.25 8.25C11.25 8.66421 11.5858 9 12 9Z" fill="currentColor" style="color:var(--icon-caution)"/></svg>
+            <p class="ds-tip-text" style="color:var(--text-caution)"><strong>주의:</strong> 직거래 시 안전한 장소를 선택하세요.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ ICONS ════ -->
+      <section class="section" id="icons">
+        <span class="section-eyebrow">Resources</span>
+        <h2 class="section-title">Icons</h2>
+        <p class="section-desc">총 155개의 SVG 아이콘. <code>fill_</code>은 채워진 형태, <code>outline_</code>은 선 형태입니다. 아이콘 색상은 <code>currentColor</code>로 상위 요소의 색상을 상속합니다.</p>
+
+        <div class="icon-filter">
+          <button class="icon-filter-btn active" onclick="filterIcons('all', this)">전체 (155)</button>
+          <button class="icon-filter-btn" onclick="filterIcons('fill', this)">Fill</button>
+          <button class="icon-filter-btn" onclick="filterIcons('outline', this)">Outline</button>
+          <button class="icon-filter-btn" onclick="filterIcons('etc', this)">Logos</button>
+        </div>
+
+        <div class="icon-grid" id="icon-grid">
+          <!-- Icons injected by JS -->
+        </div>
+      </section>
+
+    </div><!-- /content -->
+  </main><!-- /main -->
+
+</div><!-- /layout -->
+
+<!-- ════ FOOTER ════ -->
+<footer class="page-footer">
+  <span class="footer-info">Vuddy Design System · Built with CSS Custom Properties + Pretendard</span>
+  <a class="footer-link" href="https://github.com/frida-log/vuddy-design" target="_blank" rel="noopener">GitHub →</a>
+</footer>
+
+<script>
+  /* ── Icon rendering ── */
+  const icons = ["etc_logo_apple","etc_logo_basic","etc_logo_basic_circle","etc_logo_google","etc_logo_naver","etc_logo_wh","etc_logo_wh_circle","etc_logo_x","fill_alarm","fill_box","fill_camera","fill_chat_list_secret","fill_chat_manager","fill_chat_menu","fill_check_circle","fill_class","fill_close_circle","fill_collection","fill_comment","fill_crown","fill_edit","fill_fan_creator","fill_heart","fill_home","fill_house","fill_information_circle","fill_like","fill_logo_vuddy","fill_mic","fill_minus_circle","fill_new","fill_notification","fill_notification_off","fill_pause","fill_person","fill_photo","fill_photos","fill_pin","fill_play","fill_plus_circle","fill_plus_square","fill_post","fill_promotion_code","fill_rank","fill_rewards","fill_send","fill_shop","fill_show","fill_skip","fill_sorting","fill_ticket","fill_trash","fill_triangle_down","fill_triangle_left","fill_triangle_right","fill_triangle_up","fill_verified","fill_video","fill_vuddycard","fill_warning","outline_address","outline_arrow_down","outline_arrow_iosback","outline_arrow_left","outline_arrow_right","outline_arrow_up","outline_box","outline_broadcast","outline_calendar","outline_camera","outline_card","outline_cart","outline_cart_check","outline_cart_time","outline_channel","outline_chat","outline_chat_create","outline_chat_menu","outline_chat_regular","outline_chat_secret","outline_check","outline_check_circle","outline_chevron_down","outline_chevron_left","outline_chevron_right","outline_chevron_up","outline_chevron_updown","outline_class","outline_clipboard","outline_close","outline_collection","outline_copy","outline_dashboard","outline_document","outline_download","outline_edit","outline_ellipsis_horizon","outline_ellipsis_vertical","outline_email","outline_expend","outline_fan_creator","outline_faq","outline_follower","outline_four_square","outline_gacha","outline_grid","outline_headphone","outline_hide","outline_history","outline_home","outline_house","outline_information","outline_like","outline_link","outline_list","outline_lock","outline_lowrank","outline_menu","outline_message","outline_minus","outline_money","outline_mute","outline_nope","outline_notification","outline_notification_off","outline_outlink","outline_person","outline_photo","outline_pin","outline_pip","outline_plus","outline_post","outline_post_2","outline_reduce","outline_reload","outline_reorder","outline_reply","outline_search","outline_setting","outline_share","outline_shop","outline_show","outline_siren","outline_speaker","outline_table","outline_ticket","outline_timer","outline_tool","outline_tool_time","outline_trash","outline_unlock","outline_unpin","outline_verified","outline_video","outline_warning"];
+
+  const grid = document.getElementById('icon-grid');
+
+  function renderIcons(filter) {
+    const filtered = filter === 'all' ? icons : icons.filter(n => n.startsWith(filter));
+    grid.innerHTML = filtered.map(name => {
+      const label = name.replace(/^(fill_|outline_|etc_)/, '').replace(/_/g, ' ');
+      return `<div class="icon-item" data-name="${name}">
+        <img src="icons/svg/${name}.svg" alt="${label}" loading="lazy" />
+        <span class="icon-item-name">${label}</span>
+      </div>`;
+    }).join('');
+  }
+
+  function filterIcons(filter, btn) {
+    document.querySelectorAll('.icon-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderIcons(filter);
+  }
+
+  renderIcons('all');
+
+  /* ── Active nav link on scroll ── */
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id], .hero[id]');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  /* ── Tab interactivity ── */
+  document.querySelectorAll('.ds-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tab.closest('.ds-tabs').querySelectorAll('.ds-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.ds-pill-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tab.closest('.ds-pill-tabs').querySelectorAll('.ds-pill-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
