@@ -1,0 +1,361 @@
+/* ============================================================
+   Vuddy Design System — CSS Custom Properties
+   Auto-generated from Figma Variables (Vuddy-Foundation)
+   https://www.figma.com/design/ikUaHBnl5dZRmpiGEwLgZW/Vuddy-Foundation
+   ============================================================ */
+
+:root {
+
+  /* ──────────────────────────────────────────
+     GLOBAL COLORS — Primitives
+  ────────────────────────────────────────── */
+
+  /* Gray */
+  --color-gray-950: #030712;
+  --color-gray-900: #111827;
+  --color-gray-800: #1f2937;
+  --color-gray-700: #374151;
+  --color-gray-600: #4b5563;
+  --color-gray-500: #6b7280;
+  --color-gray-400: #9ca3af;
+  --color-gray-350: #bdc3cc;
+  --color-gray-300: #d1d5db;
+  --color-gray-250: #dcdfe3;
+  --color-gray-200: #e5e7eb;
+  --color-gray-100: #edeff2;
+  --color-gray-75:  #f3f4f6;
+  --color-gray-50:  #f9fafb;
+
+  /* Blue */
+  --color-blue-900: #091b57;
+  --color-blue-800: #0f2d94;
+  --color-blue-700: #113bce;
+  --color-blue-600: #234ee7;
+  --color-blue-500: #3c64f1;
+  --color-blue-400: #6686f9;
+  --color-blue-300: #8da6ff;
+  --color-blue-200: #aabdfe;
+  --color-blue-100: #d2dcff;
+  --color-blue-50:  #ebf0ff;
+
+  /* Red */
+  --color-red-900: #450a0a;
+  --color-red-800: #7f1d1d;
+  --color-red-700: #b91c1c;
+  --color-red-600: #dc2626;
+  --color-red-500: #ef4444;
+  --color-red-400: #f87171;
+  --color-red-300: #fca5a5;
+  --color-red-200: #fecaca;
+  --color-red-100: #fee2e2;
+  --color-red-50:  #fef2f2;
+
+  /* Green */
+  --color-green-900: #002116;
+  --color-green-800: #00402a;
+  --color-green-700: #00593b;
+  --color-green-600: #008055;
+  --color-green-500: #1f9c72;
+  --color-green-400: #59c295;
+  --color-green-300: #73d9af;
+  --color-green-200: #a9ead0;
+  --color-green-100: #c5f7df;
+  --color-green-50:  #e3fcef;
+
+  /* Teal */
+  --color-teal-900: #00252b;
+  --color-teal-800: #004c59;
+  --color-teal-700: #007387;
+  --color-teal-600: #008da6;
+  --color-teal-500: #00a3bf;
+  --color-teal-400: #00b8d9;
+  --color-teal-300: #4fd4e8;
+  --color-teal-200: #79e2f2;
+  --color-teal-100: #b3f5ff;
+  --color-teal-50:  #e6fcff;
+
+  /* Purple */
+  --color-purple-900: #1c1641;
+  --color-purple-800: #312772;
+  --color-purple-700: #5041af;
+  --color-purple-600: #6551db;
+  --color-purple-500: #7b68ee;
+  --color-purple-400: #9886f8;
+  --color-purple-300: #b9aef4;
+  --color-purple-200: #d4ccff;
+  --color-purple-100: #eae6ff;
+  --color-purple-50:  #f6f5ff;
+
+  /* Yellow */
+  --color-yellow-900: #451a03;
+  --color-yellow-800: #92400e;
+  --color-yellow-700: #b45309;
+  --color-yellow-600: #eb8000;
+  --color-yellow-500: #fa961e;
+  --color-yellow-400: #ffab00;
+  --color-yellow-300: #ffc400;
+  --color-yellow-200: #ffe380;
+  --color-yellow-100: #fff0b3;
+  --color-yellow-50:  #fffae6;
+
+  /* Yellow-Green (Vuddy Brand) */
+  --color-yellowgreen-900: #374208;
+  --color-yellowgreen-800: #596b0b;
+  --color-yellowgreen-700: #7a9600;
+  --color-yellowgreen-600: #92b400;
+  --color-yellowgreen-500: #acd400;
+  --color-yellowgreen-400: #bfec00;
+  --color-yellowgreen-300: #d0ff0c;
+  --color-yellowgreen-200: #e4ff73;
+  --color-yellowgreen-100: #eeffa7;
+  --color-yellowgreen-50:  #f5ffcb;
+
+  /* Black (opacity scale) */
+  --color-black-100: rgba(0, 0, 0, 1);
+  --color-black-80:  rgba(0, 0, 0, 0.8);
+  --color-black-70:  rgba(0, 0, 0, 0.7);
+  --color-black-50:  rgba(0, 0, 0, 0.5);
+  --color-black-40:  rgba(0, 0, 0, 0.4);
+  --color-black-30:  rgba(0, 0, 0, 0.3);
+  --color-black-20:  rgba(0, 0, 0, 0.2);
+  --color-black-10:  rgba(0, 0, 0, 0.1);
+  --color-black-5:   rgba(0, 0, 0, 0.05);
+  --color-black-3:   rgba(0, 0, 0, 0.03);
+  --color-black-0:   rgba(0, 0, 0, 0);
+
+  /* White (opacity scale) */
+  --color-white-100: rgba(255, 255, 255, 1);
+  --color-white-80:  rgba(255, 255, 255, 0.8);
+  --color-white-70:  rgba(255, 255, 255, 0.7);
+  --color-white-50:  rgba(255, 255, 255, 0.5);
+  --color-white-40:  rgba(255, 255, 255, 0.4);
+  --color-white-30:  rgba(255, 255, 255, 0.3);
+  --color-white-20:  rgba(255, 255, 255, 0.2);
+  --color-white-10:  rgba(255, 255, 255, 0.1);
+  --color-white-5:   rgba(255, 255, 255, 0.05);
+  --color-white-0:   rgba(255, 255, 255, 0);
+
+  /* Inish Blue */
+  --color-inish-blue-900: #10213f;
+  --color-inish-blue-800: #13396c;
+  --color-inish-blue-700: #165099;
+  --color-inish-blue-600: #1a6ac9;
+  --color-inish-blue-500: #3082e0;
+  --color-inish-blue-400: #5b9ee8;
+  --color-inish-blue-300: #86baf0;
+  --color-inish-blue-200: #afd4f7;
+  --color-inish-blue-100: #daf0ff;
+  --color-inish-blue-50:  #ecf7ff;
+
+  /* Inish Cool Gray */
+  --color-inish-coolgray-900: #08182b;
+  --color-inish-coolgray-800: #1b3048;
+  --color-inish-coolgray-700: #2d4763;
+  --color-inish-coolgray-600: #3f5d7f;
+  --color-inish-coolgray-500: #5c7b9c;
+  --color-inish-coolgray-400: #819cb8;
+  --color-inish-coolgray-300: #a8bfd6;
+  --color-inish-coolgray-200: #c5d6e5;
+  --color-inish-coolgray-100: #e0ebf3;
+  --color-inish-coolgray-50:  #f0f7fc;
+
+  /* ──────────────────────────────────────────
+     ALIAS — Semantic Tokens
+  ────────────────────────────────────────── */
+
+  /* Text */
+  --text-primary:         var(--color-gray-950);
+  --text-secondary:       var(--color-gray-700);
+  --text-tertiary:        var(--color-gray-500);
+  --text-disabled:        var(--color-gray-300);
+  --text-placeholder:     var(--color-gray-400);
+  --text-success:         var(--color-green-600);
+  --text-danger:          var(--color-red-600);
+  --text-caution:         var(--color-yellow-600);
+  --text-vuddy-primary:   var(--color-gray-900);
+  --text-vuddy-secondary: var(--color-gray-350);
+  --text-vuddy-highlight: var(--color-yellowgreen-300);
+  --text-white-primary:   var(--color-white-100);
+  --text-white-secondary: var(--color-white-70);
+  --text-white-disabled:  var(--color-white-30);
+
+  /* Icon */
+  --icon-primary:         var(--color-gray-950);
+  --icon-secondary:       var(--color-gray-700);
+  --icon-tertiary:        var(--color-gray-500);
+  --icon-disabled:        var(--color-gray-300);
+  --icon-placeholder:     var(--color-gray-400);
+  --icon-success:         var(--color-green-600);
+  --icon-danger:          var(--color-red-600);
+  --icon-caution:         var(--color-yellow-600);
+  --icon-vuddy-primary:   var(--color-gray-900);
+  --icon-vuddy-secondary: var(--color-gray-350);
+  --icon-vuddy-highlight: var(--color-yellowgreen-300);
+  --icon-white-primary:   var(--color-white-100);
+  --icon-white-secondary: var(--color-white-70);
+  --icon-white-disabled:  var(--color-white-30);
+
+  /* Line */
+  --line-divider-primary:    var(--color-gray-200);
+  --line-divider-secondary:  var(--color-gray-100);
+  --line-container-outline:  var(--color-gray-200);
+  --line-img-outline:        var(--color-black-5);
+  --line-success:            var(--color-green-600);
+  --line-danger:             var(--color-red-600);
+  --line-caution:            var(--color-yellow-600);
+  --line-vuddy-primary:      var(--color-gray-900);
+  --line-vuddy-secondary:    var(--color-gray-350);
+  --line-vuddy-highlight:    var(--color-yellowgreen-300);
+  --line-white-primary:      var(--color-white-100);
+  --line-white-secondary:    var(--color-white-70);
+  --line-white-disabled:     var(--color-white-30);
+  --line-white-divider:      var(--color-white-10);
+  --line-black-primary:      var(--color-black-100);
+  --line-black-secondary:    var(--color-black-50);
+
+  /* Surface */
+  --surface-primary:          var(--color-white-100);
+  --surface-secondary:        var(--color-gray-50);
+  --surface-tertiary:         var(--color-gray-75);
+  --surface-quaternary:       var(--color-gray-100);
+  --surface-vuddy-primary:    var(--color-gray-900);
+  --surface-vuddy-secondary:  var(--color-gray-350);
+  --surface-vuddy-tertiary:   var(--color-gray-100);
+  --surface-vuddy-quaternary: var(--color-gray-50);
+  --surface-vuddy-highlight:  var(--color-yellowgreen-300);
+  --surface-success:          var(--color-green-600);
+  --surface-success-lowest:   var(--color-green-50);
+  --surface-danger:           var(--color-red-600);
+  --surface-danger-lowest:    var(--color-red-50);
+  --surface-caution:          var(--color-yellow-600);
+  --surface-caution-lowest:   var(--color-yellow-50);
+  --surface-sale:             var(--color-red-500);
+  --surface-dim:              var(--color-black-50);
+  --surface-dim-high:         var(--color-black-70);
+  --surface-dim-low:          var(--color-black-20);
+  --surface-dim-lower:        var(--color-black-10);
+  --surface-dim-lowest:       var(--color-black-5);
+  --surface-pressed:          var(--color-black-5);
+  --surface-hover:            var(--color-black-3);
+  --surface-black:            var(--color-black-100);
+  --surface-gray:             var(--color-gray-400);
+  --surface-gray-low:         var(--color-gray-250);
+  --surface-gray-high:        var(--color-gray-500);
+  --surface-white-dim:        var(--color-white-80);
+  --surface-white-secondary:  var(--color-white-50);
+  --surface-white-tertiary:   var(--color-white-20);
+  --surface-white-quaternary: var(--color-white-10);
+  --surface-white-transparent:var(--color-white-0);
+  --surface-black-transparent:var(--color-black-0);
+
+  /* Button */
+  --button-primary:           var(--color-gray-900);
+  --button-primary-hover:     var(--color-gray-950);
+  --button-primary-pressed:   var(--color-black-100);
+  --button-primary-disabled:  var(--color-gray-75);
+  --button-secondary:         var(--color-gray-350);
+  --button-secondary-hover:   var(--color-gray-400);
+  --button-secondary-pressed: var(--color-gray-400);
+  --button-secondary-disabled:var(--color-gray-75);
+  --button-white:             var(--color-white-100);
+  --button-white-hover:       var(--color-white-80);
+  --button-white-pressed:     var(--color-white-70);
+  --button-white-disabled:    var(--color-white-30);
+  --button-tertiary:          var(--color-gray-100);
+  --button-tertiary-hover:    var(--color-gray-200);
+  --button-tertiary-pressed:  var(--color-gray-250);
+  --button-tertiary-disabled: var(--color-gray-75);
+
+  /* ──────────────────────────────────────────
+     SIZE — Radius
+  ────────────────────────────────────────── */
+  --radius-2xs:   2px;
+  --radius-xs:    4px;
+  --radius-small: 6px;
+  --radius-base:  8px;
+  --radius-large: 12px;
+  --radius-xl:    16px;
+  --radius-2xl:   24px;
+  --radius-3xl:   32px;
+  --radius-4xl:   40px;
+
+  /* ──────────────────────────────────────────
+     SIZE — Gap
+  ────────────────────────────────────────── */
+  --gap-gapless: 0px;
+  --gap-2xs:     2px;
+  --gap-xs:      4px;
+  --gap-small:   6px;
+  --gap-base:    8px;
+  --gap-large:   10px;
+  --gap-xl:      12px;
+  --gap-2xl:     16px;
+  --gap-3xl:     20px;
+  --gap-4xl:     24px;
+  --gap-5xl:     32px;
+  --gap-6xl:     40px;
+  --gap-7xl:     48px;
+
+  /* ──────────────────────────────────────────
+     SIZE — Padding
+  ────────────────────────────────────────── */
+  --padding-6xs: 2px;
+  --padding-5xs: 4px;
+  --padding-4xs: 6px;
+  --padding-3xs: 8px;
+  --padding-2xs: 10px;
+  --padding-xs:  12px;
+  --padding-small: 16px;
+  --padding-base:  20px;
+  --padding-large: 24px;
+  --padding-xl:    32px;
+  --padding-2xl:   40px;
+  --padding-3xl:   48px;
+  --padding-4xl:   56px;
+  --padding-5xl:   64px;
+
+  /* ──────────────────────────────────────────
+     SIZE — Stroke
+  ────────────────────────────────────────── */
+  --stroke-small: 0.5px;
+  --stroke-base:  1px;
+  --stroke-large: 2px;
+  --stroke-xl:    3px;
+  --stroke-2xl:   4px;
+
+  /* ──────────────────────────────────────────
+     SIZE — Space (unified scale)
+  ────────────────────────────────────────── */
+  --space-none:  0px;
+  --space-2xs:   2px;
+  --space-xs:    4px;
+  --space-small: 6px;
+  --space-base:  8px;
+  --space-medium:10px;
+  --space-large: 12px;
+  --space-xl:    16px;
+  --space-2xl:   20px;
+  --space-3xl:   24px;
+  --space-4xl:   32px;
+  --space-5xl:   40px;
+  --space-6xl:   48px;
+  --space-7xl:   56px;
+  --space-8xl:   64px;
+  --space-9xl:   72px;
+  --space-10xl:  80px;
+
+  /* ──────────────────────────────────────────
+     SIZE — Image (avatar / thumbnail sizes)
+  ────────────────────────────────────────── */
+  --image-2xs:   16px;
+  --image-xs:    24px;
+  --image-small: 32px;
+  --image-base:  40px;
+  --image-large: 48px;
+  --image-xl:    56px;
+  --image-2xl:   64px;
+  --image-3xl:   72px;
+  --image-4xl:   80px;
+  --image-5xl:   96px;
+  --image-6xl:   120px;
+}
