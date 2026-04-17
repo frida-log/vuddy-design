@@ -10,7 +10,7 @@
 | Toggle | — | — | 🔜 |
 | Radio | — | — | 🔜 |
 | Badge / Tag | — | — | 🔜 |
-| Avatar | [Avatar.md](Avatar.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=1258-795) | ✅ |
+| Profile | [Profile.md](Profile.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=1258-795) | ✅ |
 | Image / Thumbnail | [Image.md](Image.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=1258-795) | ✅ |
 | Dialog | [Dialog.md](Dialog.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1298) | ✅ |
 | Tip | [Tip.md](Tip.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1298) | ✅ |
