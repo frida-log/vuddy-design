@@ -6,9 +6,7 @@
 |-----------|------|-------|--------|
 | Button | [Button.md](Button.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=2025-1478) | ✅ |
 | Input | [Input.md](Input.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=889-1299) | ✅ |
-| Checkbox | — | — | 🔜 |
-| Toggle | — | — | 🔜 |
-| Radio | — | — | 🔜 |
+| Checkbox / Radio / Toggle | [Control.md](Control.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=11389-2588) | ✅ |
 | Tag | [Tag.md](Tag.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=2025-1701) | ✅ |
 | Profile | [Profile.md](Profile.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=1258-795) | ✅ |
 | Image / Thumbnail | [Image.md](Image.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=1258-795) | ✅ |
@@ -24,3 +22,5 @@
 | Tab / Navigation Bar | [TabBar.md](TabBar.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=9212-2758) | ✅ |
 | Tab (Pill / Segmented) | [Tab.md](Tab.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=892-1300) | ✅ |
 | Card | — | — | 🔜 |
+| Chat | [Chat.md](Chat.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=8879-3950) | ✅ |
+| Web Menu | [WebMenu.md](WebMenu.md) | [Figma](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component?node-id=9334-1936) | ✅ |
