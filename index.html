@@ -459,9 +459,15 @@
     /* Solid sizes */
     .ds-btn-xs { height: 22px; padding: 0 var(--padding-xs); font-size: var(--font-size-caption-xs); border-radius: var(--radius-4xl); }
     .ds-btn-sm { height: 28px; padding: 0 var(--padding-3xs); font-size: var(--font-size-caption-base); border-radius: var(--radius-base); }
-    .ds-btn-md { height: 36px; padding: 0 var(--padding-xs); font-size: var(--font-size-body-xs); border-radius: var(--radius-base); }
+    .ds-btn-md { height: 36px; padding: 0 var(--padding-xs); font-size: var(--font-size-body-xs); border-radius: var(--radius-large); }
     .ds-btn-lg { height: 44px; padding: 0 var(--padding-small); font-size: var(--font-size-body-xs); border-radius: var(--radius-large); }
     .ds-btn-xl { height: 52px; padding: 0 var(--padding-small); font-size: var(--font-size-body-base); border-radius: var(--radius-large); }
+    /* Top button */
+    .ds-btn-top { width: 44px; height: 44px; padding: 0; border-radius: var(--radius-xl); background: var(--button-white); box-shadow: var(--shadow-base); flex-shrink: 0; }
+    .ds-btn-top:hover { background: var(--button-white-hover); }
+    /* Stretch buttons full-width inside grid */
+    .btn-grid.stretch .btn-grid-cell { display: flex; }
+    .btn-grid.stretch .btn-grid-cell button { width: 100%; justify-content: center; }
     /* Solid variants */
     .ds-btn-primary { background: var(--button-primary); color: var(--text-white-primary); }
     .ds-btn-primary:hover { background: var(--button-primary-hover); }
@@ -1142,105 +1148,232 @@
       <section class="section" id="buttons">
         <span class="section-eyebrow">Components</span>
         <h2 class="section-title">Button</h2>
-        <p class="section-desc">Solid·Outline 두 가지 타입, 4가지 variant, 5가지 크기. 한 화면에 Solid Primary는 1개만 사용합니다.</p>
+        <p class="section-desc">Solid·Outline 두 가지 타입, 4가지 variant. 한 화면에 Solid Primary는 1개만 사용합니다.</p>
 
-        <!-- XS Solid -->
-        <div class="subsection-title">XS — Solid <code style="font-size:10px;margin-left:6px">height: 22px · radius-4xl · caption-xs</code></div>
+        <!-- 크기 비교 -->
+        <div class="comp-preview" style="align-items:center;flex-wrap:nowrap;gap:var(--gap-xl)">
+          <button class="ds-btn ds-btn-primary ds-btn-xl">Large</button>
+          <button class="ds-btn ds-btn-primary ds-btn-md">Medium</button>
+          <button class="ds-btn ds-btn-primary ds-btn-sm">Small</button>
+          <button class="ds-btn ds-btn-primary ds-btn-xs">XS</button>
+          <button class="ds-btn ds-btn-top"><img src="icons/svg/outline_arrow_up.svg" width="20" height="20" alt="top" /></button>
+        </div>
+
+        <!-- ── LARGE ── -->
+        <div class="subsection-title" style="margin-top:var(--gap-4xl)">Large <code style="font-size:10px;margin-left:6px">52px · radius-large · body-base</code></div>
+        <div class="btn-grid stretch">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">Primary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-primary ds-btn-xl">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--button-primary-pressed);color:var(--text-white-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--button-primary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Secondary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-secondary ds-btn-xl">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--button-secondary-pressed);color:var(--text-white-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--button-secondary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Tertiary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-tertiary ds-btn-xl">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--button-tertiary-pressed);color:var(--text-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--button-tertiary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid stretch dark">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">White</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-white ds-btn-xl">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--button-white-pressed);color:var(--text-vuddy-primary);box-shadow:var(--shadow-base)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--button-white-disabled);color:var(--text-white-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid stretch" style="margin-top:var(--gap-xl)">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">Primary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline ds-btn-xl">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--surface-quaternary);border:var(--stroke-base) solid var(--button-primary);color:var(--text-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Secondary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-secondary ds-btn-xl">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--surface-quaternary);border:var(--stroke-base) solid var(--button-secondary);color:var(--text-secondary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Danger</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-danger ds-btn-xl">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:var(--surface-danger-lowest);border:var(--stroke-base) solid var(--line-danger);color:var(--text-danger)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid stretch dark" style="margin-top:0">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">White</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-white ds-btn-xl">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:transparent;border:var(--stroke-base) solid var(--button-white-pressed);color:var(--text-white-secondary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-xl" style="background:transparent;border:var(--stroke-base) solid var(--text-white-disabled);color:var(--text-white-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+
+        <!-- ── MEDIUM ── -->
+        <div class="subsection-title" style="margin-top:var(--gap-5xl)">Medium <code style="font-size:10px;margin-left:6px">36px · radius-large · body-xs</code></div>
         <div class="btn-grid">
-          <div></div>
-          <div class="btn-grid-header">Enabled</div>
-          <div class="btn-grid-header">Pressed</div>
-          <div class="btn-grid-header">Disabled</div>
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">Primary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-primary ds-btn-md">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--button-primary-pressed);color:var(--text-white-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--button-primary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Secondary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-secondary ds-btn-md">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--button-secondary-pressed);color:var(--text-white-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--button-secondary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Tertiary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-tertiary ds-btn-md">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--button-tertiary-pressed);color:var(--text-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--button-tertiary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid dark">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">White</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-white ds-btn-md">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--button-white-pressed);color:var(--text-vuddy-primary);box-shadow:var(--shadow-base)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--button-white-disabled);color:var(--text-white-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid" style="margin-top:var(--gap-xl)">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">Primary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline ds-btn-md">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--surface-quaternary);border:var(--stroke-base) solid var(--button-primary);color:var(--text-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Secondary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-secondary ds-btn-md">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--surface-quaternary);border:var(--stroke-base) solid var(--button-secondary);color:var(--text-secondary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Danger</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-danger ds-btn-md">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:var(--surface-danger-lowest);border:var(--stroke-base) solid var(--line-danger);color:var(--text-danger)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid dark" style="margin-top:0">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">White</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-white ds-btn-md">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:transparent;border:var(--stroke-base) solid var(--button-white-pressed);color:var(--text-white-secondary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-md" style="background:transparent;border:var(--stroke-base) solid var(--text-white-disabled);color:var(--text-white-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
 
+        <!-- ── SMALL ── -->
+        <div class="subsection-title" style="margin-top:var(--gap-5xl)">Small <code style="font-size:10px;margin-left:6px">28px · radius-base · caption-base</code></div>
+        <div class="btn-grid">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">Primary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-primary ds-btn-sm">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--button-primary-pressed);color:var(--text-white-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--button-primary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Secondary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-secondary ds-btn-sm">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--button-secondary-pressed);color:var(--text-white-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--button-secondary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Tertiary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-tertiary ds-btn-sm">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--button-tertiary-pressed);color:var(--text-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--button-tertiary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid dark">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">White</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-white ds-btn-sm">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--button-white-pressed);color:var(--text-vuddy-primary);box-shadow:var(--shadow-base)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--button-white-disabled);color:var(--text-white-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid" style="margin-top:var(--gap-xl)">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">Primary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline ds-btn-sm">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--surface-quaternary);border:var(--stroke-base) solid var(--button-primary);color:var(--text-primary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Secondary</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-secondary ds-btn-sm">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--surface-quaternary);border:var(--stroke-base) solid var(--button-secondary);color:var(--text-secondary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+          <div class="btn-grid-label">Danger</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-danger ds-btn-sm">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:var(--surface-danger-lowest);border:var(--stroke-base) solid var(--line-danger);color:var(--text-danger)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+        <div class="btn-grid dark" style="margin-top:0">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
+          <div class="btn-grid-label">White</div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-white ds-btn-sm">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:transparent;border:var(--stroke-base) solid var(--button-white-pressed);color:var(--text-white-secondary)">Button</button></div>
+          <div class="btn-grid-cell"><button class="ds-btn ds-btn-sm" style="background:transparent;border:var(--stroke-base) solid var(--text-white-disabled);color:var(--text-white-disabled);cursor:not-allowed" disabled>Button</button></div>
+        </div>
+
+        <!-- ── XS ── -->
+        <div class="subsection-title" style="margin-top:var(--gap-5xl)">XS <code style="font-size:10px;margin-left:6px">22px · radius-4xl (pill) · caption-xs</code></div>
+        <div class="btn-grid">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
           <div class="btn-grid-label">Primary</div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-primary ds-btn-xs">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:var(--button-primary-pressed);color:var(--text-white-primary)">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:var(--button-primary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
-
           <div class="btn-grid-label">Secondary</div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-secondary ds-btn-xs">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:var(--button-secondary-pressed);color:var(--text-white-primary)">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:var(--button-secondary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
-
           <div class="btn-grid-label">Tertiary</div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-tertiary ds-btn-xs">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:var(--button-tertiary-pressed);color:var(--text-primary)">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:var(--button-tertiary-disabled);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
         </div>
         <div class="btn-grid dark">
-          <div></div>
-          <div class="btn-grid-header">Enabled</div>
-          <div class="btn-grid-header">Pressed</div>
-          <div class="btn-grid-header">Disabled</div>
-
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
           <div class="btn-grid-label">White</div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-white ds-btn-xs">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:var(--button-white-pressed);color:var(--text-vuddy-primary);box-shadow:var(--shadow-base)">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:var(--button-white-disabled);color:var(--text-white-disabled);cursor:not-allowed" disabled>Button</button></div>
         </div>
-
-        <!-- XS Outline -->
-        <div class="subsection-title" style="margin-top:var(--gap-4xl)">XS — Outline <code style="font-size:10px;margin-left:6px">stroke-base border · radius-4xl</code></div>
-        <div class="btn-grid">
-          <div></div>
-          <div class="btn-grid-header">Enabled</div>
-          <div class="btn-grid-header">Pressed</div>
-          <div class="btn-grid-header">Disabled</div>
-
+        <div class="btn-grid" style="margin-top:var(--gap-xl)">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
           <div class="btn-grid-label">Primary</div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline ds-btn-xs">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:transparent;border:var(--stroke-base) solid var(--button-primary-pressed);color:var(--text-primary)">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
-
           <div class="btn-grid-label">Secondary</div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-secondary ds-btn-xs">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:transparent;border:var(--stroke-base) solid var(--button-secondary-pressed);color:var(--text-secondary)">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
-
           <div class="btn-grid-label">Danger</div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-danger ds-btn-xs">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:transparent;border:var(--stroke-base) solid var(--line-danger);color:var(--text-danger)">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:transparent;border:var(--stroke-base) solid var(--line-divider-primary);color:var(--text-disabled);cursor:not-allowed" disabled>Button</button></div>
         </div>
-        <div class="btn-grid dark">
-          <div></div>
-          <div class="btn-grid-header">Enabled</div>
-          <div class="btn-grid-header">Pressed</div>
-          <div class="btn-grid-header">Disabled</div>
-
+        <div class="btn-grid dark" style="margin-top:0">
+          <div></div><div class="btn-grid-header">Enabled</div><div class="btn-grid-header">Pressed</div><div class="btn-grid-header">Disabled</div>
           <div class="btn-grid-label">White</div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-outline-white ds-btn-xs">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:transparent;border:var(--stroke-base) solid var(--button-white-pressed);color:var(--text-white-secondary)">Button</button></div>
           <div class="btn-grid-cell"><button class="ds-btn ds-btn-xs" style="background:transparent;border:var(--stroke-base) solid var(--text-white-disabled);color:var(--text-white-disabled);cursor:not-allowed" disabled>Button</button></div>
         </div>
 
-        <!-- Other sizes -->
-        <div class="subsection-title" style="margin-top:var(--gap-4xl)">크기 비교 (Primary Solid)</div>
-        <div class="comp-preview" style="align-items:center">
-          <button class="ds-btn ds-btn-primary ds-btn-xs">XS</button>
-          <button class="ds-btn ds-btn-primary ds-btn-sm">Small</button>
-          <button class="ds-btn ds-btn-primary ds-btn-md">Medium</button>
-          <button class="ds-btn ds-btn-primary ds-btn-lg">Large</button>
-          <button class="ds-btn ds-btn-primary ds-btn-xl">XLarge</button>
+        <!-- ── TOP ── -->
+        <div class="subsection-title" style="margin-top:var(--gap-5xl)">Top <code style="font-size:10px;margin-left:6px">44×44px · radius-xl · icon-only</code></div>
+        <div class="comp-preview" style="gap:var(--gap-5xl)">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:var(--gap-base)">
+            <button class="ds-btn ds-btn-top"><img src="icons/svg/outline_arrow_up.svg" width="20" height="20" alt="top" /></button>
+            <span style="font-size:var(--font-size-caption-base);color:var(--text-tertiary)">Enabled</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:var(--gap-base)">
+            <button class="ds-btn ds-btn-top" style="background:var(--button-tertiary-pressed);box-shadow:var(--shadow-base)"><img src="icons/svg/outline_arrow_up.svg" width="20" height="20" alt="top" /></button>
+            <span style="font-size:var(--font-size-caption-base);color:var(--text-tertiary)">Pressed</span>
+          </div>
         </div>
 
-        <pre class="comp-code">/* XS Button */
-height:        22px;
-padding:       0 var(--padding-xs);        /* 12px */
-border-radius: var(--radius-4xl);          /* 40px — pill */
-font-size:     var(--font-size-caption-xs); /* 9px */
+        <pre class="comp-code">/* Size tokens */
+large:  height 52px · padding-small · radius-large · body-base
+medium: height 36px · padding-xs    · radius-large · body-xs
+small:  height 28px · padding-3xs   · radius-base  · caption-base
+xs:     height 22px · padding-xs    · radius-4xl   · caption-xs (pill)
+top:    44×44px     · radius-xl     · icon-only
 
 /* Solid Primary */
-background: var(--button-primary);         /* gray-900 */
+background: var(--button-primary);   /* gray-900 */
 color:      var(--text-white-primary);
 
 /* Outline Danger */
 border: var(--stroke-base) solid var(--line-danger);
-color:  var(--text-danger);
-
-/* Outline Secondary */
-border: var(--stroke-base) solid var(--button-secondary);
-color:  var(--text-secondary);</pre>
+color:  var(--text-danger);</pre>
       </section>
 
       <!-- ════ TAG ════ -->
