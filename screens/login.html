@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>로그인 / 회원가입 · Vuddy</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <link rel="stylesheet" href="../tokens/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--surface-primary);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+    }
+
+    /* ── Page ── */
+    .login-page {
+      min-height: 100dvh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: var(--space-10xl) var(--space-3xl);
+    }
+
+    /* ── Card ── */
+    .login-card {
+      width: 100%;
+      max-width: 312px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-6xl);
+    }
+
+    @media (min-width: 768px) {
+      .login-card {
+        max-width: 432px;
+      }
+    }
+
+    /* ── etc_logographic ── */
+    .etc-logographic {
+      width: 186px;
+      height: 80px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .etc-logographic__bg {
+      position: absolute;
+      width: 180.715px;
+      height: 60.238px;
+      background: var(--surface-vuddy-highlight);
+      transform: rotate(-5.97deg);
+      top: 50%;
+      left: 50%;
+      translate: -50% -51%;
+    }
+
+    .etc-logographic__wordmark {
+      position: absolute;
+      width: 145.017px;
+      height: 38.5px;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+      transform: rotate(-5.97deg);
+    }
+
+    /* ── Body ── */
+    .login-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4xl);
+      width: 100%;
+    }
+
+    /* ── Texts ── */
+    .login-texts {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-xl);
+      text-align: center;
+      width: 100%;
+    }
+
+    .login-title {
+      font-size: var(--font-size-title-base);
+      line-height: var(--line-height-title-base);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .login-subtitle {
+      font-size: var(--font-size-body-small);
+      line-height: var(--line-height-body-small);
+      font-weight: 400;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Button list ── */
+    .btn-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-large);
+      width: 100%;
+    }
+
+    /* ── Social login button (Outline / Secondary) ── */
+    .btn-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--gap-base);
+      width: 100%;
+      height: 52px;
+      padding: 0 var(--padding-small);
+      border: var(--stroke-base) solid var(--line-divider-primary);
+      border-radius: var(--radius-large);
+      background: transparent;
+      font-family: inherit;
+      font-size: var(--font-size-body-base);
+      line-height: var(--line-height-body-base);
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.15s ease;
+      width: 100%;
+    }
+
+    .btn-social:hover {
+      background: var(--surface-hover);
+    }
+
+    .btn-social:active {
+      background: var(--surface-pressed);
+    }
+
+    .btn-social img {
+      width: var(--image-xs);
+      height: var(--image-xs);
+      flex-shrink: 0;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="login-page">
+    <div class="login-card">
+
+      <!-- etc_logographic: slanted yellowgreen bg + vuddy wordmark -->
+      <div class="etc-logographic" aria-label="Vuddy">
+        <div class="etc-logographic__bg"></div>
+        <img class="etc-logographic__wordmark"
+          src="https://www.figma.com/api/mcp/asset/87718e15-5e3b-4047-98dc-c7aa0a527e9c"
+          alt="Vuddy" />
+      </div>
+
+      <!-- Text + Buttons -->
+      <div class="login-body">
+
+        <div class="login-texts">
+          <p class="login-title">버디에 오신 것을 환영합니다!</p>
+          <p class="login-subtitle">
+            간편하게 로그인 또는 회원가입하고<br>
+            버디에서 다양한 크리에이터 굿즈들을 만나보세요!
+          </p>
+        </div>
+
+        <div class="btn-list">
+
+          <!-- Apple -->
+          <button class="btn-social">
+            <img src="../icons/svg/etc_logo_apple.svg" alt="" />
+            Apple로 시작하기
+          </button>
+
+          <!-- Google -->
+          <button class="btn-social">
+            <img src="../icons/svg/etc_logo_google.svg" alt="" />
+            Google로 시작하기
+          </button>
+
+          <!-- Naver -->
+          <button class="btn-social">
+            <img src="../icons/svg/etc_logo_naver.svg" alt="" />
+            네이버로 시작하기
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>
