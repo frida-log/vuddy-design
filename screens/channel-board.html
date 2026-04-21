@@ -39,10 +39,23 @@
       overflow: hidden; flex-shrink: 0; display: none;
     }
     .topbar-wordmark img { position: absolute; display: block; max-width: none; }
+    /* Vertical rule: 24×1 asset rotated 90° (Vuddy-Component TopBar) */
     .topbar-divider {
-      width: 1px; height: 24px;
-      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      width: 0;
+      height: 24px;
       display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .topbar-divider-inner {
+      flex: none;
+      transform: rotate(90deg);
+    }
+    .topbar-divider-inner img {
+      display: block;
+      width: 24px;
+      height: 1px;
     }
     .topbar-channel-pill {
       display: none; align-items: center; gap: var(--gap-small);
@@ -63,28 +76,38 @@
       max-width: 140px; overflow: hidden;
       text-overflow: ellipsis; white-space: nowrap;
     }
-    .pill-arrow { width: 12px; height: 12px; flex-shrink: 0; }
+    .pill-dropdown {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-2xs);
+      min-width: 0;
+    }
+    .pill-arrow { width: 12px; height: 12px; flex-shrink: 0; display: block; }
 
-    .topbar-tail { display: flex; align-items: center; gap: var(--gap-2xl); }
+    .topbar-tail { display: flex; align-items: center; gap: var(--space-xl); }
     .tb-icon { position: relative; width: 24px; height: 24px; cursor: pointer; color: var(--text-white-primary); }
-    .tb-icon svg { width: 24px; height: 24px; display: block; }
+    .tb-icon svg,
+    .tb-icon .tb-icon-main { width: 24px; height: 24px; display: block; }
     .tb-dot {
       position: absolute; top: -1px; left: 21px;
-      width: 4px; height: 4px; border-radius: 50%;
-      background: var(--surface-danger);
+      width: 4px; height: 4px;
+      display: block;
+      pointer-events: none;
     }
     .tb-count {
-      position: absolute; top: -4px; left: calc(50% + 4px);
+      position: absolute; top: -4px; left: calc(50% + 8px);
+      transform: translateX(-50%);
       background: var(--surface-black);
       color: var(--text-white-primary);
       font-size: 9px; font-weight: 600; line-height: 12px;
-      padding: 1px 5px; border-radius: 40px; white-space: nowrap;
+      padding: var(--gap-2xs) var(--gap-small);
+      border-radius: 40px; white-space: nowrap;
     }
 
     @media (min-width: 768px) {
       .topbar-logo-img { display: none; }
       .topbar-wordmark { display: block; }
-      .topbar-divider { display: block; }
+      .topbar-divider { display: flex; }
       .topbar-channel-pill { display: flex; }
     }
 
@@ -389,44 +412,43 @@
       <a href="../index.html" aria-label="Vuddy 홈">
         <div class="topbar-wordmark">
           <img style="top:8.83%;right:77.72%;bottom:18.58%;left:3.33%"
-            src="https://www.figma.com/api/mcp/asset/ad09f40b-af06-4700-a550-587f901f1170" alt="" />
+            src="https://www.figma.com/api/mcp/asset/f7e3b097-0c27-4a8f-830e-7ed966e5a283" alt="" />
           <img style="top:8.64%;right:40.57%;bottom:17.03%;left:41.33%"
-            src="https://www.figma.com/api/mcp/asset/4a171115-5799-472a-956f-a0faa5e32810" alt="" />
+            src="https://www.figma.com/api/mcp/asset/82a90006-6a1b-4ba2-a9f7-9c54b5ac31bd" alt="" />
           <img style="top:8.64%;right:21.57%;bottom:17.03%;left:60.33%"
-            src="https://www.figma.com/api/mcp/asset/c417f8d4-b118-4eb0-a16f-f11a686e3b0c" alt="" />
+            src="https://www.figma.com/api/mcp/asset/95184698-a499-4add-8650-cd48f1170a2e" alt="" />
           <img style="top:18.83%;right:1.62%;bottom:8.64%;left:79.33%"
-            src="https://www.figma.com/api/mcp/asset/202366bf-66a3-4030-9174-d4240b64bd78" alt="" />
+            src="https://www.figma.com/api/mcp/asset/e9e62c39-04dd-4d8c-8461-ff55334162ff" alt="" />
           <img style="top:18.78%;right:59.55%;bottom:17.34%;left:23.14%"
-            src="https://www.figma.com/api/mcp/asset/f69b38f1-1fce-46da-8892-20faa89ac1f7" alt="" />
+            src="https://www.figma.com/api/mcp/asset/ecb50203-675c-453b-9153-54b2cc73ec61" alt="" />
         </div>
       </a>
-      <div class="topbar-divider"></div>
+      <div class="topbar-divider" aria-hidden="true">
+        <div class="topbar-divider-inner">
+          <img src="https://www.figma.com/api/mcp/asset/c29c7475-f689-4486-bb55-ebc5186c8b69" alt="" />
+        </div>
+      </div>
       <!-- Channel pill -->
       <div class="topbar-channel-pill">
         <div class="pill-avatar">
           <img src="https://www.figma.com/api/mcp/asset/a4b5f465-1baf-47f1-8c41-030dfe36553e" alt="채널" />
         </div>
-        <span class="pill-name">케이팝 데몬 헌터스</span>
-        <svg class="pill-arrow" viewBox="0 0 12 12" fill="none">
-          <path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <div class="pill-dropdown">
+          <span class="pill-name">케이팝 데몬 헌터스</span>
+          <img class="pill-arrow" src="https://www.figma.com/api/mcp/asset/eecb16db-5e3f-426d-85da-f75157ec71bc" width="12" height="12" alt="" />
+        </div>
       </div>
     </div>
 
     <div class="topbar-tail">
-      <!-- Notification -->
+      <!-- Notification (outline + dot — Vuddy-Component TopBar) -->
       <div class="tb-icon" aria-label="알림">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="tb-dot"></span>
+        <img class="tb-icon-main" src="https://www.figma.com/api/mcp/asset/3011e951-6fa2-475d-b91a-d88ea7c1af35" alt="" width="24" height="24" />
+        <img class="tb-dot" src="https://www.figma.com/api/mcp/asset/dc5116bb-608b-4071-8a1d-45acdfce307a" alt="" width="4" height="4" />
       </div>
       <!-- Cart -->
       <div class="tb-icon" aria-label="장바구니">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M1.833 2.083a.75.75 0 0 0 0 1.5h2.719l.707 3.532c.003.022.007.044.012.065L6.665 14.138c.11.556.413 1.056.855 1.412.44.354.99.542 1.553.533h8.087c.564.009 1.114-.18 1.554-.533.441-.356.744-.856.855-1.412l1.334-6.997a.75.75 0 0 0-.736-.917H6.616L5.902 2.69a.75.75 0 0 0-.736-.607H1.833zm6.3 11.762L6.916 7.75h12.344l-1.162 6.096-.001.002a.808.808 0 0 1-.326.534.82.82 0 0 1-.523.118H9.067a.82.82 0 0 1-.523-.118.808.808 0 0 1-.326-.537zM10.833 19.5a2.333 2.333 0 1 1-4.667 0 2.333 2.333 0 0 1 4.667 0zm-1.5 0a.833.833 0 1 1-1.667 0 .833.833 0 0 1 1.667 0zm10.667 0a2.333 2.333 0 1 1-4.666 0 2.333 2.333 0 0 1 4.666 0zm-1.5 0a.833.833 0 1 1-1.667 0 .833.833 0 0 1 1.667 0z" fill="currentColor"/>
-        </svg>
+        <img class="tb-icon-main" src="https://www.figma.com/api/mcp/asset/70eaef0e-25ed-4acf-a599-d319338e14f7" alt="" width="24" height="24" />
         <span class="tb-count">6</span>
       </div>
       <!-- Menu -->
