@@ -25,6 +25,9 @@ vuddy-design/
 ├── logos/
 │   ├── catalog.md          ← 브랜드 로고 이름 / Figma 링크
 │   └── svg/                ← 로고 전용 SVG (워드마크, 로고그래픽, 앱 아이콘, 심볼)
+├── images/
+│   ├── catalog.md          ← 정적 PNG 이름 / Figma 링크
+│   └── png/                ← Figma에서 export한 래스터·복합 그래픽 (기본 @2x)
 └── screens/
     └── *.md                ← 화면별 구현 스펙
 ```
@@ -103,6 +106,7 @@ When creating UI, always reference @DESIGN.md for tokens and components.
 Use CSS custom properties from tokens/tokens.css.
 Icons are in icons/svg/ — do not use external icon libraries.
 Brand logos are in logos/svg/ — use catalog.md for names and Figma links.
+Raster UI images are in images/png/ — use images/catalog.md for names and Figma links.
 ```
 
 ### 개발자 — CSS
@@ -119,6 +123,7 @@ Brand logos are in logos/svg/ — use catalog.md for names and Figma links.
 - Figma Variables 변경 시 → Token Studio로 export → `tokens/tokens.json` PR 생성
 - 새 아이콘 추가 시 → SVG export → `icons/svg/` 에 추가 + `icons/catalog.md` 업데이트
 - 로고 그래픽 변경 시 → `FIGMA_TOKEN=… node scripts/download-logos.js` 로 `logos/svg/` 갱신 + `logos/catalog.md` 링크 확인
+- 정적 PNG(가챠 뱃지, 스토어 배지 등) 변경 시 → `FIGMA_TOKEN=… node scripts/download-images.js` 로 `images/png/` 갱신 + `images/catalog.md` 링크 확인
 - 컴포넌트 추가/변경 시 → `components/컴포넌트명.md` 작성 + `components/index.md` 등록
 
 ### 기획자 / PM
