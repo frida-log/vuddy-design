@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>장바구니 · Vuddy</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <link rel="stylesheet" href="../tokens/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--surface-secondary);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+    }
+
+    /* ── TopBar ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface-primary);
+      border-bottom: var(--stroke-base) solid var(--line-divider-primary);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 var(--padding-xs);
+      gap: var(--gap-base);
+    }
+
+    .topbar__back {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-radius: var(--radius-base);
+      flex-shrink: 0;
+      color: var(--icon-primary);
+    }
+    .topbar__back:hover { background: var(--surface-hover); }
+    .topbar__back:active { background: var(--surface-pressed); }
+
+    .topbar__title {
+      flex: 1;
+      font-size: var(--font-size-title-small);
+      line-height: var(--line-height-title-small);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .topbar__count {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 600;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Layout ── */
+    .cart-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--padding-base) var(--padding-xs);
+    }
+
+    @media (min-width: 768px) {
+      .cart-layout {
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        grid-template-rows: auto 1fr;
+        gap: var(--gap-4xl);
+        padding: var(--padding-large) var(--padding-large);
+        align-items: start;
+      }
+    }
+
+    /* ── Select All Bar ── */
+    .select-all-bar {
+      background: var(--surface-primary);
+      border-radius: var(--radius-large);
+      padding: var(--padding-xs) var(--padding-small);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--gap-base);
+    }
+
+    @media (min-width: 768px) {
+      .select-all-bar {
+        grid-column: 1 / 2;
+        margin-bottom: 0;
+      }
+    }
+
+    .select-all-left {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-xl);
+    }
+
+    .btn-text-danger {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .btn-text-danger:hover { color: var(--text-danger); }
+
+    /* ── Checkbox ── */
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-base);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: var(--radius-xs);
+      border: var(--stroke-base) solid var(--line-container-outline);
+      background: var(--surface-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .checkbox.checked {
+      background: var(--surface-vuddy-primary);
+      border-color: var(--surface-vuddy-primary);
+    }
+
+    .checkbox svg { display: none; }
+    .checkbox.checked svg { display: block; }
+
+    .checkbox-label {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ── Cart Items Section ── */
+    .cart-items-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-base);
+    }
+
+    @media (min-width: 768px) {
+      .cart-items-section {
+        grid-column: 1 / 2;
+      }
+    }
+
+    /* ── Seller Group ── */
+    .seller-group {
+      background: var(--surface-primary);
+      border-radius: var(--radius-large);
+      overflow: hidden;
+    }
+
+    .seller-header {
+      padding: var(--padding-xs) var(--padding-small);
+      display: flex;
+      align-items: center;
+      gap: var(--gap-base);
+      border-bottom: var(--stroke-base) solid var(--line-divider-secondary);
+    }
+
+    .seller-name {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 600;
+      color: var(--text-primary);
+      flex: 1;
+    }
+
+    /* ── Seller Footer ── */
+    .seller-footer {
+      padding: var(--padding-xs) var(--padding-small);
+      border-top: var(--stroke-base) solid var(--line-divider-primary);
+      background: var(--surface-tertiary);
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-small);
+    }
+
+    .seller-footer__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .seller-footer__label {
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 400;
+      color: var(--text-tertiary);
+    }
+
+    .seller-footer__value {
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    .seller-footer__value.free {
+      color: var(--text-success);
+      font-weight: 600;
+    }
+
+    .seller-footer__total-label {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .seller-footer__total-value {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .seller-footer__divider {
+      height: var(--stroke-base);
+      background: var(--line-divider-primary);
+      margin: var(--gap-xs) 0;
+    }
+
+    /* ── Item Shipping Tag ── */
+    .cart-item__shipping {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--gap-xs);
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      margin-top: var(--gap-xs);
+    }
+
+    .cart-item__shipping.paid {
+      color: var(--text-secondary);
+    }
+
+    .cart-item__delivery {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--gap-xs);
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 600;
+      color: var(--text-success);
+      margin-top: var(--gap-2xs);
+    }
+
+    /* ── Cart Item ── */
+    .cart-item {
+      padding: var(--padding-small);
+      display: flex;
+      gap: var(--gap-2xl);
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .cart-item + .cart-item {
+      border-top: var(--stroke-base) solid var(--line-divider-secondary);
+    }
+
+    .cart-item__checkbox {
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .cart-item__img-wrap {
+      width: 88px;
+      height: 88px;
+      border-radius: var(--radius-base);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--surface-tertiary);
+      border: var(--stroke-base) solid var(--line-img-outline);
+      position: relative;
+    }
+
+    .cart-item__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cart-item__badge {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      background: var(--surface-sale);
+      color: var(--text-white-primary);
+      font-size: var(--font-size-caption-small);
+      line-height: var(--line-height-caption-small);
+      font-weight: 600;
+      padding: 1px var(--padding-5xs);
+      border-radius: var(--radius-2xs);
+    }
+
+    .cart-item__info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-small);
+    }
+
+    .cart-item__name {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 400;
+      color: var(--text-primary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .cart-item__option {
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cart-item__price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: var(--gap-xs);
+    }
+
+    .cart-item__price {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .cart-item__original-price {
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      text-decoration: line-through;
+    }
+
+    .cart-item__final-price {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cart-item__discount {
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 600;
+      color: var(--text-danger);
+    }
+
+    /* ── Quantity Controls ── */
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: var(--stroke-base) solid var(--line-container-outline);
+      border-radius: var(--radius-base);
+      overflow: hidden;
+      height: 32px;
+    }
+
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--icon-primary);
+      flex-shrink: 0;
+      transition: background 0.12s;
+    }
+    .qty-btn:hover { background: var(--surface-hover); }
+    .qty-btn:active { background: var(--surface-pressed); }
+    .qty-btn:disabled { color: var(--icon-disabled); cursor: not-allowed; }
+
+    .qty-value {
+      width: 32px;
+      text-align: center;
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 600;
+      color: var(--text-primary);
+      border-left: var(--stroke-base) solid var(--line-container-outline);
+      border-right: var(--stroke-base) solid var(--line-container-outline);
+    }
+
+    .btn-delete {
+      position: absolute;
+      top: var(--padding-xs);
+      right: var(--padding-xs);
+      width: 24px;
+      height: 24px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--icon-tertiary);
+      border-radius: var(--radius-xs);
+      padding: 0;
+    }
+    .btn-delete:hover { color: var(--icon-danger); background: var(--surface-danger-lowest); }
+
+    /* ── Order Summary (Sidebar on desktop) ── */
+    .order-summary-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-base);
+      margin-top: var(--gap-base);
+    }
+
+    @media (min-width: 768px) {
+      .order-summary-wrap {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+        margin-top: 0;
+        position: sticky;
+        top: 72px;
+      }
+    }
+
+    .order-summary {
+      background: var(--surface-primary);
+      border-radius: var(--radius-large);
+      padding: var(--padding-small);
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-2xl);
+    }
+
+    .order-summary__title {
+      font-size: var(--font-size-body-base);
+      line-height: var(--line-height-body-base);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .order-summary__rows {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-xl);
+    }
+
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .order-row__label {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    .order-row__value {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 400;
+      color: var(--text-primary);
+    }
+
+    .order-row__value.discount { color: var(--text-danger); }
+    .order-row__value.free { color: var(--text-success); font-weight: 600; }
+
+    .order-summary__divider {
+      height: var(--stroke-base);
+      background: var(--line-divider-primary);
+    }
+
+    .order-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .order-total-row__label {
+      font-size: var(--font-size-body-small);
+      line-height: var(--line-height-body-small);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .order-total-row__price {
+      font-size: var(--font-size-title-small);
+      line-height: var(--line-height-title-small);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* ── Coupon / Points ── */
+    .benefit-card {
+      background: var(--surface-primary);
+      border-radius: var(--radius-large);
+      padding: var(--padding-small);
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-xl);
+    }
+
+    .benefit-card__title {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .benefit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--gap-base);
+    }
+
+    .benefit-row__label {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 400;
+      color: var(--text-secondary);
+      flex: 1;
+    }
+
+    .benefit-row__right {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-base);
+    }
+
+    .benefit-row__value {
+      font-size: var(--font-size-body-xs);
+      line-height: var(--line-height-body-xs);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .btn-small {
+      height: 30px;
+      padding: 0 var(--padding-xs);
+      border-radius: var(--radius-base);
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 600;
+      border: var(--stroke-base) solid var(--line-container-outline);
+      background: var(--surface-primary);
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-small:hover { background: var(--surface-tertiary); }
+
+    /* ── CTA ── */
+    .cta-section {
+      position: sticky;
+      bottom: 0;
+      background: var(--surface-primary);
+      border-top: var(--stroke-base) solid var(--line-divider-primary);
+      padding: var(--padding-xs) var(--padding-small);
+      padding-bottom: calc(var(--padding-xs) + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-base);
+    }
+
+    @media (min-width: 768px) {
+      .cta-section {
+        position: static;
+        border-top: none;
+        padding: 0;
+        background: transparent;
+      }
+    }
+
+    .cta-mini-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .cta-mini-summary { display: none; }
+    }
+
+    .cta-mini-summary__label {
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    .cta-mini-summary__price {
+      font-size: var(--font-size-body-small);
+      line-height: var(--line-height-body-small);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .btn-order {
+      width: 100%;
+      height: 52px;
+      border-radius: var(--radius-base);
+      background: var(--button-primary);
+      color: var(--text-white-primary);
+      font-size: var(--font-size-body-base);
+      line-height: var(--line-height-body-base);
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--gap-base);
+      transition: background 0.12s;
+    }
+    .btn-order:hover { background: var(--button-primary-hover); }
+    .btn-order:active { background: var(--button-primary-pressed); }
+
+    /* ── Notice ── */
+    .cart-notice {
+      background: var(--surface-primary);
+      border-radius: var(--radius-large);
+      padding: var(--padding-small);
+    }
+
+    .cart-notice__title {
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: var(--gap-base);
+    }
+
+    .cart-notice__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-small);
+    }
+
+    .cart-notice__list li {
+      font-size: var(--font-size-caption-base);
+      line-height: var(--line-height-caption-base);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      padding-left: var(--padding-5xs);
+      position: relative;
+    }
+
+    .cart-notice__list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+    }
+
+    /* ── Responsive helpers ── */
+    .desktop-only { display: none; }
+
+    @media (min-width: 768px) {
+      .mobile-only { display: none; }
+      .desktop-only { display: flex; }
+    }
+
+    /* Scrollable product image placeholder colors */
+    .img-placeholder-1 { background: linear-gradient(135deg, var(--color-gray-100), var(--color-gray-200)); }
+    .img-placeholder-2 { background: linear-gradient(135deg, var(--color-yellowgreen-50), var(--color-yellowgreen-100)); }
+    .img-placeholder-3 { background: linear-gradient(135deg, var(--color-blue-50), var(--color-blue-100)); }
+    .img-placeholder-4 { background: linear-gradient(135deg, var(--color-red-50), var(--color-red-100)); }
+
+    .img-icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TopBar -->
+  <header class="topbar">
+    <button class="topbar__back" aria-label="뒤로 가기">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M9.45374 12L15.527 18.073C15.6653 18.2115 15.7362 18.3856 15.7395 18.5953C15.7427 18.8048 15.6718 18.982 15.527 19.127C15.382 19.2718 15.2063 19.3443 15 19.3443C14.7937 19.3443 14.618 19.2718 14.473 19.127L7.97874 12.6328C7.88524 12.5391 7.81924 12.4403 7.78074 12.3365C7.74224 12.2327 7.72299 12.1205 7.72299 12C7.72299 11.8795 7.74224 11.7673 7.78074 11.6635C7.81924 11.5597 7.88524 11.4609 7.97874 11.3673L14.473 4.873C14.6115 4.73467 14.7856 4.66384 14.9952 4.6605C15.2047 4.65734 15.382 4.72817 15.527 4.873C15.6718 5.018 15.7442 5.19367 15.7442 5.4C15.7442 5.60634 15.6718 5.782 15.527 5.927L9.45374 12Z" fill="currentColor"/>
+      </svg>
+    </button>
+    <h1 class="topbar__title">장바구니</h1>
+    <span class="topbar__count">4개</span>
+  </header>
+
+  <!-- Main content -->
+  <main>
+    <div class="cart-layout">
+
+      <!-- Select All Bar -->
+      <div class="select-all-bar">
+        <label class="checkbox-wrap" id="select-all-wrap">
+          <span class="checkbox checked" id="select-all-checkbox">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+              <path d="M21.4168 6.70131C21.2191 6.50361 20.9785 6.39577 20.7043 6.40012C20.4361 6.40438 20.2012 6.50941 20.0094 6.70141L10.548 16.1628L5.61265 11.2141L5.00156 10.6013C4.80416 10.4039 4.56397 10.2953 4.29004 10.2953C4.01622 10.2953 3.77612 10.404 3.57876 10.6013C3.38106 10.799 3.27254 11.04 3.27005 11.315C3.2674 11.5887 3.36872 11.8294 3.56326 12.0241L9.73834 18.1992C9.9629 18.4235 10.2362 18.5433 10.5478 18.5433C10.8594 18.5433 11.1329 18.4233 11.3574 18.199L21.4168 8.12411C21.6142 7.92671 21.7228 7.68652 21.7228 7.41259C21.7228 7.13877 21.6142 6.89867 21.4168 6.70131Z" fill="white"/>
+            </svg>
+          </span>
+          <span class="checkbox-label">전체 선택 (3/3)</span>
+        </label>
+        <button class="btn-text-danger" onclick="deleteSelected()">선택 삭제</button>
+      </div>
+
+      <!-- Cart Items -->
+      <section class="cart-items-section" aria-label="장바구니 상품">
+
+        <!-- Seller Group 1 -->
+        <div class="seller-group">
+          <div class="seller-header">
+            <label class="checkbox-wrap">
+              <span class="checkbox checked" data-group="1">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M21.4168 6.70131C21.2191 6.50361 20.9785 6.39577 20.7043 6.40012C20.4361 6.40438 20.2012 6.50941 20.0094 6.70141L10.548 16.1628L5.61265 11.2141L5.00156 10.6013C4.80416 10.4039 4.56397 10.2953 4.29004 10.2953C4.01622 10.2953 3.77612 10.404 3.57876 10.6013C3.38106 10.799 3.27254 11.04 3.27005 11.315C3.2674 11.5887 3.36872 11.8294 3.56326 12.0241L9.73834 18.1992C9.9629 18.4235 10.2362 18.5433 10.5478 18.5433C10.8594 18.5433 11.1329 18.4233 11.3574 18.199L21.4168 8.12411C21.6142 7.92671 21.7228 7.68652 21.7228 7.41259C21.7228 7.13877 21.6142 6.89867 21.4168 6.70131Z" fill="white"/>
+                </svg>
+              </span>
+            </label>
+            <span class="seller-name">Vuddy 공식 스토어</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="color: var(--icon-tertiary);">
+              <path d="M14.5463 12L8.47299 5.92701C8.33466 5.78868 8.26383 5.61452 8.26049 5.40485C8.25733 5.19535 8.32816 5.01802 8.47299 4.87318C8.61799 4.72852 8.79366 4.65618 8.99999 4.65618C9.20633 4.65618 9.38199 4.72852 9.52699 4.87318L16.0213 11.3675C16.1148 11.4612 16.1808 11.5599 16.2193 11.6637C16.2578 11.7675 16.277 11.8797 16.277 12C16.277 12.1205 16.2578 12.2327 16.2193 12.3365C16.1808 12.4403 16.1148 12.5391 16.0213 12.6328L9.52699 19.127C9.38866 19.2653 9.21449 19.3362 9.00483 19.3395C8.79533 19.3427 8.61799 19.2718 8.47299 19.127C8.32833 18.982 8.25599 18.8063 8.25599 18.6C8.25599 18.3937 8.32833 18.218 8.47299 18.073L14.5463 12Z" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <!-- Item 1 -->
+          <div class="cart-item" data-item-id="1">
+            <div class="cart-item__checkbox">
+              <label class="checkbox-wrap">
+                <span class="checkbox checked" data-item="1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M21.4168 6.70131C21.2191 6.50361 20.9785 6.39577 20.7043 6.40012C20.4361 6.40438 20.2012 6.50941 20.0094 6.70141L10.548 16.1628L5.61265 11.2141L5.00156 10.6013C4.80416 10.4039 4.56397 10.2953 4.29004 10.2953C4.01622 10.2953 3.77612 10.404 3.57876 10.6013C3.38106 10.799 3.27254 11.04 3.27005 11.315C3.2674 11.5887 3.36872 11.8294 3.56326 12.0241L9.73834 18.1992C9.9629 18.4235 10.2362 18.5433 10.5478 18.5433C10.8594 18.5433 11.1329 18.4233 11.3574 18.199L21.4168 8.12411C21.6142 7.92671 21.7228 7.68652 21.7228 7.41259C21.7228 7.13877 21.6142 6.89867 21.4168 6.70131Z" fill="white"/>
+                  </svg>
+                </span>
+              </label>
+            </div>
+            <div class="cart-item__img-wrap img-placeholder-1">
+              <span class="img-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.83363 2.08341C1.41942 2.08341 1.08363 2.41919 1.08363 2.83341C1.08363 3.24762 1.41942 3.58341 1.83363 3.58341H4.5522L5.25905 7.11501C5.26248 7.13729 5.26688 7.15924 5.27222 7.18082L6.66477 14.1384C6.77535 14.6945 7.07795 15.194 7.51962 15.5495C7.95938 15.9036 8.50914 16.0924 9.07345 16.0834H17.1605C17.7248 16.0924 18.2745 15.9036 18.7143 15.5495C19.1561 15.1939 19.4588 14.6942 19.5693 14.1379L20.9037 7.14057C20.9456 6.92101 20.8873 6.69421 20.7448 6.52199C20.6024 6.34977 20.3905 6.25008 20.167 6.25008H6.61568L5.90238 2.68622C5.83222 2.3357 5.52444 2.08341 5.16697 2.08341H1.83363Z" fill="black"/>
+                </svg>
+              </span>
+            </div>
+            <div class="cart-item__info">
+              <p class="cart-item__name">Vuddy 오버핏 반팔 티셔츠 — 차콜 블랙 에디션 2024</p>
+              <p class="cart-item__option">옵션: L / 블랙</p>
+              <span class="cart-item__shipping">배송비 무료</span>
+              <span class="cart-item__delivery">2026.05.05 배송 예정</span>
+              <div class="cart-item__price-row">
+                <div class="cart-item__price">
+                  <span class="cart-item__original-price">39,000원</span>
+                  <span class="cart-item__final-price">27,300원</span>
+                </div>
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="changeQty(this, -1)" aria-label="수량 감소">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <line x1="4.25" y1="12.25" x2="19.75" y2="12.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <span class="qty-value">1</span>
+                  <button class="qty-btn" onclick="changeQty(this, 1)" aria-label="수량 증가">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M11.25 12.75H4.25C4.0375 12.75 3.85942 12.6781 3.71575 12.5343C3.57192 12.3904 3.5 12.2122 3.5 11.9998C3.5 11.7871 3.57192 11.609 3.71575 11.4655C3.85942 11.3218 4.0375 11.25 4.25 11.25H11.25V4.25C11.25 4.0375 11.3219 3.85942 11.4658 3.71575C11.6096 3.57192 11.7878 3.5 12.0002 3.5C12.2129 3.5 12.391 3.57192 12.5345 3.71575C12.6782 3.85942 12.75 4.0375 12.75 4.25V11.25H19.75C19.9625 11.25 20.1406 11.3219 20.2843 11.4658C20.4281 11.6096 20.5 11.7878 20.5 12.0002C20.5 12.2129 20.4281 12.391 20.2843 12.5345C20.1406 12.6782 19.9625 12.75 19.75 12.75H12.75V19.75C12.75 19.9625 12.6781 20.1406 12.5343 20.2843C12.3904 20.4281 12.2122 20.5 11.9998 20.5C11.7871 20.5 11.609 20.4281 11.4655 20.2843C11.3218 20.1406 11.25 19.9625 11.25 19.75V12.75Z" fill="currentColor"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-delete" aria-label="상품 삭제" onclick="deleteItem(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.58334 4.66668V5.75001H3.75C3.33579 5.75001 3 6.08579 3 6.50001C3 6.91422 3.33579 7.25001 3.75 7.25001H4.83334V19.3333C4.83334 20.0185 5.10551 20.6756 5.58998 21.16C6.07444 21.6445 6.73153 21.9167 7.41667 21.9167H16.5833C17.2685 21.9167 17.9256 21.6445 18.41 21.16C18.8945 20.6756 19.1667 20.0185 19.1667 19.3333V7.25001H20.25C20.6642 7.25001 21 6.91422 21 6.50001C21 6.08579 20.6642 5.75001 20.25 5.75001H16.4167V4.66668C16.4167 3.98153 16.1445 3.32445 15.66 2.83998C15.1756 2.35552 14.5185 2.08334 13.8333 2.08334H10.1667C9.48153 2.08334 8.82445 2.35552 8.33998 2.83998C7.85551 3.32445 7.58334 3.98153 7.58334 4.66668ZM10.9167 11.0833C10.9167 10.6691 10.5809 10.3333 10.1667 10.3333C9.75245 10.3333 9.41666 10.6691 9.41666 11.0833V16.5833C9.41666 16.9976 9.75245 17.3333 10.1667 17.3333C10.5809 17.3333 10.9167 16.9976 10.9167 16.5833V11.0833ZM13.8333 10.3333C14.2475 10.3333 14.5833 10.6691 14.5833 11.0833V16.5833C14.5833 16.9976 14.2475 17.3333 13.8333 17.3333C13.4191 17.3333 13.0833 16.9976 13.0833 16.5833V11.0833C13.0833 10.6691 13.4191 10.3333 13.8333 10.3333Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="cart-item" data-item-id="2">
+            <div class="cart-item__checkbox">
+              <label class="checkbox-wrap">
+                <span class="checkbox checked" data-item="2">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M21.4168 6.70131C21.2191 6.50361 20.9785 6.39577 20.7043 6.40012C20.4361 6.40438 20.2012 6.50941 20.0094 6.70141L10.548 16.1628L5.61265 11.2141L5.00156 10.6013C4.80416 10.4039 4.56397 10.2953 4.29004 10.2953C4.01622 10.2953 3.77612 10.404 3.57876 10.6013C3.38106 10.799 3.27254 11.04 3.27005 11.315C3.2674 11.5887 3.36872 11.8294 3.56326 12.0241L9.73834 18.1992C9.9629 18.4235 10.2362 18.5433 10.5478 18.5433C10.8594 18.5433 11.1329 18.4233 11.3574 18.199L21.4168 8.12411C21.6142 7.92671 21.7228 7.68652 21.7228 7.41259C21.7228 7.13877 21.6142 6.89867 21.4168 6.70131Z" fill="white"/>
+                  </svg>
+                </span>
+              </label>
+            </div>
+            <div class="cart-item__img-wrap img-placeholder-2">
+              <span class="img-badge" style="position:absolute;top:4px;left:4px;background:var(--surface-sale);color:var(--text-white-primary);font-size:var(--font-size-caption-small);font-weight:600;padding:1px 4px;border-radius:var(--radius-2xs);">SALE</span>
+              <span class="img-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                  <path d="M19.2028 5.52611C18.3274 4.81928 17.2041 4.43006 16.0406 4.43006C14.6959 4.43006 13.3937 4.95395 12.4693 5.8659C12.3028 6.03015 12.147 6.20647 12.0015 6.39719C10.8691 4.92632 8.98127 4.17045 7.10655 4.50362C5.55458 4.7788 4.33531 5.61291 3.48143 6.98024C2.2789 8.90962 2.18088 10.7697 3.19056 12.5107C3.73126 13.4441 4.43254 14.3517 5.33224 15.2847C6.98223 16.9988 8.93624 18.6266 11.4847 20.4076C11.6465 20.5193 11.8202 20.5758 12.0007 20.5758C12.2801 20.5758 12.4693 20.438 12.5626 20.3699C14.8266 18.7916 16.6834 17.2713 18.2397 15.7214C19.1207 14.8449 20.12 13.7671 20.8508 12.4227C21.1636 11.8471 21.521 11.0733 21.499 10.1894C21.4524 8.28725 20.6798 6.7183 19.2028 5.52611Z" fill="black" opacity="0.4"/>
+                </svg>
+              </span>
+            </div>
+            <div class="cart-item__info">
+              <p class="cart-item__name">Vuddy 로고 에코백 — 옐로우그린 브랜드 에디션</p>
+              <p class="cart-item__option">옵션: 기본</p>
+              <span class="cart-item__shipping">배송비 무료</span>
+              <span class="cart-item__delivery">2026.05.05 배송 예정</span>
+              <div style="display:flex;align-items:center;gap:var(--gap-small);margin-top:2px;">
+                <span class="cart-item__discount">30%</span>
+                <span style="font-size:var(--font-size-caption-base);color:var(--text-tertiary);text-decoration:line-through;">45,000원</span>
+              </div>
+              <div class="cart-item__price-row">
+                <div class="cart-item__price">
+                  <span class="cart-item__final-price">31,500원</span>
+                </div>
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="changeQty(this, -1)" aria-label="수량 감소">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <line x1="4.25" y1="12.25" x2="19.75" y2="12.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <span class="qty-value">2</span>
+                  <button class="qty-btn" onclick="changeQty(this, 1)" aria-label="수량 증가">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M11.25 12.75H4.25C4.0375 12.75 3.85942 12.6781 3.71575 12.5343C3.57192 12.3904 3.5 12.2122 3.5 11.9998C3.5 11.7871 3.57192 11.609 3.71575 11.4655C3.85942 11.3218 4.0375 11.25 4.25 11.25H11.25V4.25C11.25 4.0375 11.3219 3.85942 11.4658 3.71575C11.6096 3.57192 11.7878 3.5 12.0002 3.5C12.2129 3.5 12.391 3.57192 12.5345 3.71575C12.6782 3.85942 12.75 4.0375 12.75 4.25V11.25H19.75C19.9625 11.25 20.1406 11.3219 20.2843 11.4658C20.4281 11.6096 20.5 11.7878 20.5 12.0002C20.5 12.2129 20.4281 12.391 20.2843 12.5345C20.1406 12.6782 19.9625 12.75 19.75 12.75H12.75V19.75C12.75 19.9625 12.6781 20.1406 12.5343 20.2843C12.3904 20.4281 12.2122 20.5 11.9998 20.5C11.7871 20.5 11.609 20.4281 11.4655 20.2843C11.3218 20.1406 11.25 19.9625 11.25 19.75V12.75Z" fill="currentColor"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-delete" aria-label="상품 삭제" onclick="deleteItem(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.58334 4.66668V5.75001H3.75C3.33579 5.75001 3 6.08579 3 6.50001C3 6.91422 3.33579 7.25001 3.75 7.25001H4.83334V19.3333C4.83334 20.0185 5.10551 20.6756 5.58998 21.16C6.07444 21.6445 6.73153 21.9167 7.41667 21.9167H16.5833C17.2685 21.9167 17.9256 21.6445 18.41 21.16C18.8945 20.6756 19.1667 20.0185 19.1667 19.3333V7.25001H20.25C20.6642 7.25001 21 6.91422 21 6.50001C21 6.08579 20.6642 5.75001 20.25 5.75001H16.4167V4.66668C16.4167 3.98153 16.1445 3.32445 15.66 2.83998C15.1756 2.35552 14.5185 2.08334 13.8333 2.08334H10.1667C9.48153 2.08334 8.82445 2.35552 8.33998 2.83998C7.85551 3.32445 7.58334 3.98153 7.58334 4.66668ZM10.9167 11.0833C10.9167 10.6691 10.5809 10.3333 10.1667 10.3333C9.75245 10.3333 9.41666 10.6691 9.41666 11.0833V16.5833C9.41666 16.9976 9.75245 17.3333 10.1667 17.3333C10.5809 17.3333 10.9167 16.9976 10.9167 16.5833V11.0833ZM13.8333 10.3333C14.2475 10.3333 14.5833 10.6691 14.5833 11.0833V16.5833C14.5833 16.9976 14.2475 17.3333 13.8333 17.3333C13.4191 17.3333 13.0833 16.9976 13.0833 16.5833V11.0833C13.0833 10.6691 13.4191 10.3333 13.8333 10.3333Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <!-- Item 4 (배송비 3,000원) -->
+          <div class="cart-item" data-item-id="4">
+            <div class="cart-item__checkbox">
+              <label class="checkbox-wrap">
+                <span class="checkbox checked" data-item="4">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M21.4168 6.70131C21.2191 6.50361 20.9785 6.39577 20.7043 6.40012C20.4361 6.40438 20.2012 6.50941 20.0094 6.70141L10.548 16.1628L5.61265 11.2141L5.00156 10.6013C4.80416 10.4039 4.56397 10.2953 4.29004 10.2953C4.01622 10.2953 3.77612 10.404 3.57876 10.6013C3.38106 10.799 3.27254 11.04 3.27005 11.315C3.2674 11.5887 3.36872 11.8294 3.56326 12.0241L9.73834 18.1992C9.9629 18.4235 10.2362 18.5433 10.5478 18.5433C10.8594 18.5433 11.1329 18.4233 11.3574 18.199L21.4168 8.12411C21.6142 7.92671 21.7228 7.68652 21.7228 7.41259C21.7228 7.13877 21.6142 6.89867 21.4168 6.70131Z" fill="white"/>
+                  </svg>
+                </span>
+              </label>
+            </div>
+            <div class="cart-item__img-wrap img-placeholder-4">
+              <span class="img-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                  <path d="M19.2028 5.52611C18.3274 4.81928 17.2041 4.43006 16.0406 4.43006C14.6959 4.43006 13.3937 4.95395 12.4693 5.8659C12.3028 6.03015 12.147 6.20647 12.0015 6.39719C10.8691 4.92632 8.98127 4.17045 7.10655 4.50362C5.55458 4.7788 4.33531 5.61291 3.48143 6.98024C2.2789 8.90962 2.18088 10.7697 3.19056 12.5107C3.73126 13.4441 4.43254 14.3517 5.33224 15.2847C6.98223 16.9988 8.93624 18.6266 11.4847 20.4076C11.6465 20.5193 11.8202 20.5758 12.0007 20.5758C12.2801 20.5758 12.4693 20.438 12.5626 20.3699C14.8266 18.7916 16.6834 17.2713 18.2397 15.7214C19.1207 14.8449 20.12 13.7671 20.8508 12.4227C21.1636 11.8471 21.521 11.0733 21.499 10.1894C21.4524 8.28725 20.6798 6.7183 19.2028 5.52611Z" fill="black" opacity="0.4"/>
+                </svg>
+              </span>
+            </div>
+            <div class="cart-item__info">
+              <p class="cart-item__name">Vuddy 맨투맨 스웨트셔츠 — 네이비 클래식</p>
+              <p class="cart-item__option">옵션: M / 네이비</p>
+              <span class="cart-item__shipping paid">배송비 3,000원</span>
+              <div class="cart-item__price-row">
+                <div class="cart-item__price">
+                  <span class="cart-item__final-price">52,000원</span>
+                </div>
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="changeQty(this, -1)" aria-label="수량 감소">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <line x1="4.25" y1="12.25" x2="19.75" y2="12.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <span class="qty-value">1</span>
+                  <button class="qty-btn" onclick="changeQty(this, 1)" aria-label="수량 증가">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M11.25 12.75H4.25C4.0375 12.75 3.85942 12.6781 3.71575 12.5343C3.57192 12.3904 3.5 12.2122 3.5 11.9998C3.5 11.7871 3.57192 11.609 3.71575 11.4655C3.85942 11.3218 4.0375 11.25 4.25 11.25H11.25V4.25C11.25 4.0375 11.3219 3.85942 11.4658 3.71575C11.6096 3.57192 11.7878 3.5 12.0002 3.5C12.2129 3.5 12.391 3.57192 12.5345 3.71575C12.6782 3.85942 12.75 4.0375 12.75 4.25V11.25H19.75C19.9625 11.25 20.1406 11.3219 20.2843 11.4658C20.4281 11.6096 20.5 11.7878 20.5 12.0002C20.5 12.2129 20.4281 12.391 20.2843 12.5345C20.1406 12.6782 19.9625 12.75 19.75 12.75H12.75V19.75C12.75 19.9625 12.6781 20.1406 12.5343 20.2843C12.3904 20.4281 12.2122 20.5 11.9998 20.5C11.7871 20.5 11.609 20.4281 11.4655 20.2843C11.3218 20.1406 11.25 19.9625 11.25 19.75V12.75Z" fill="currentColor"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-delete" aria-label="상품 삭제" onclick="deleteItem(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.58334 4.66668V5.75001H3.75C3.33579 5.75001 3 6.08579 3 6.50001C3 6.91422 3.33579 7.25001 3.75 7.25001H4.83334V19.3333C4.83334 20.0185 5.10551 20.6756 5.58998 21.16C6.07444 21.6445 6.73153 21.9167 7.41667 21.9167H16.5833C17.2685 21.9167 17.9256 21.6445 18.41 21.16C18.8945 20.6756 19.1667 20.0185 19.1667 19.3333V7.25001H20.25C20.6642 7.25001 21 6.91422 21 6.50001C21 6.08579 20.6642 5.75001 20.25 5.75001H16.4167V4.66668C16.4167 3.98153 16.1445 3.32445 15.66 2.83998C15.1756 2.35552 14.5185 2.08334 13.8333 2.08334H10.1667C9.48153 2.08334 8.82445 2.35552 8.33998 2.83998C7.85551 3.32445 7.58334 3.98153 7.58334 4.66668ZM10.9167 11.0833C10.9167 10.6691 10.5809 10.3333 10.1667 10.3333C9.75245 10.3333 9.41666 10.6691 9.41666 11.0833V16.5833C9.41666 16.9976 9.75245 17.3333 10.1667 17.3333C10.5809 17.3333 10.9167 16.9976 10.9167 16.5833V11.0833ZM13.8333 10.3333C14.2475 10.3333 14.5833 10.6691 14.5833 11.0833V16.5833C14.5833 16.9976 14.2475 17.3333 13.8333 17.3333C13.4191 17.3333 13.0833 16.9976 13.0833 16.5833V11.0833C13.0833 10.6691 13.4191 10.3333 13.8333 10.3333Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Seller 1 footer -->
+          <div class="seller-footer">
+            <div class="seller-footer__row">
+              <span class="seller-footer__label">배송비 (티셔츠, 에코백)</span>
+              <span class="seller-footer__value free">무료</span>
+            </div>
+            <div class="seller-footer__row">
+              <span class="seller-footer__label">배송비 (맨투맨)</span>
+              <span class="seller-footer__value">3,000원</span>
+            </div>
+            <div class="seller-footer__divider"></div>
+            <div class="seller-footer__row">
+              <span class="seller-footer__total-label">판매자 합계</span>
+              <span class="seller-footer__total-value">145,300원</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seller Group 2 -->
+        <div class="seller-group">
+          <div class="seller-header">
+            <label class="checkbox-wrap">
+              <span class="checkbox checked" data-group="2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M21.4168 6.70131C21.2191 6.50361 20.9785 6.39577 20.7043 6.40012C20.4361 6.40438 20.2012 6.50941 20.0094 6.70141L10.548 16.1628L5.61265 11.2141L5.00156 10.6013C4.80416 10.4039 4.56397 10.2953 4.29004 10.2953C4.01622 10.2953 3.77612 10.404 3.57876 10.6013C3.38106 10.799 3.27254 11.04 3.27005 11.315C3.2674 11.5887 3.36872 11.8294 3.56326 12.0241L9.73834 18.1992C9.9629 18.4235 10.2362 18.5433 10.5478 18.5433C10.8594 18.5433 11.1329 18.4233 11.3574 18.199L21.4168 8.12411C21.6142 7.92671 21.7228 7.68652 21.7228 7.41259C21.7228 7.13877 21.6142 6.89867 21.4168 6.70131Z" fill="white"/>
+                </svg>
+              </span>
+            </label>
+            <span class="seller-name">파트너 스토어</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="color: var(--icon-tertiary);">
+              <path d="M14.5463 12L8.47299 5.92701C8.33466 5.78868 8.26383 5.61452 8.26049 5.40485C8.25733 5.19535 8.32816 5.01802 8.47299 4.87318C8.61799 4.72852 8.79366 4.65618 8.99999 4.65618C9.20633 4.65618 9.38199 4.72852 9.52699 4.87318L16.0213 11.3675C16.1148 11.4612 16.1808 11.5599 16.2193 11.6637C16.2578 11.7675 16.277 11.8797 16.277 12C16.277 12.1205 16.2578 12.2327 16.2193 12.3365C16.1808 12.4403 16.1148 12.5391 16.0213 12.6328L9.52699 19.127C9.38866 19.2653 9.21449 19.3362 9.00483 19.3395C8.79533 19.3427 8.61799 19.2718 8.47299 19.127C8.32833 18.982 8.25599 18.8063 8.25599 18.6C8.25599 18.3937 8.32833 18.218 8.47299 18.073L14.5463 12Z" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="cart-item" data-item-id="3">
+            <div class="cart-item__checkbox">
+              <label class="checkbox-wrap">
+                <span class="checkbox checked" data-item="3">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M21.4168 6.70131C21.2191 6.50361 20.9785 6.39577 20.7043 6.40012C20.4361 6.40438 20.2012 6.50941 20.0094 6.70141L10.548 16.1628L5.61265 11.2141L5.00156 10.6013C4.80416 10.4039 4.56397 10.2953 4.29004 10.2953C4.01622 10.2953 3.77612 10.404 3.57876 10.6013C3.38106 10.799 3.27254 11.04 3.27005 11.315C3.2674 11.5887 3.36872 11.8294 3.56326 12.0241L9.73834 18.1992C9.9629 18.4235 10.2362 18.5433 10.5478 18.5433C10.8594 18.5433 11.1329 18.4233 11.3574 18.199L21.4168 8.12411C21.6142 7.92671 21.7228 7.68652 21.7228 7.41259C21.7228 7.13877 21.6142 6.89867 21.4168 6.70131Z" fill="white"/>
+                  </svg>
+                </span>
+              </label>
+            </div>
+            <div class="cart-item__img-wrap img-placeholder-3">
+              <span class="img-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.58334 4.66668V5.75001H3.75C3.33579 5.75001 3 6.08579 3 6.50001C3 6.91422 3.33579 7.25001 3.75 7.25001H4.83334V19.3333C4.83334 20.0185 5.10551 20.6756 5.58998 21.16C6.07444 21.6445 6.73153 21.9167 7.41667 21.9167H16.5833C17.2685 21.9167 17.9256 21.6445 18.41 21.16C18.8945 20.6756 19.1667 20.0185 19.1667 19.3333V7.25001H20.25C20.6642 7.25001 21 6.91422 21 6.50001C21 6.08579 20.6642 5.75001 20.25 5.75001H16.4167V4.66668C16.4167 3.98153 16.1445 3.32445 15.66 2.83998C15.1756 2.35552 14.5185 2.08334 13.8333 2.08334H10.1667C9.48153 2.08334 8.82445 2.35552 8.33998 2.83998C7.85551 3.32445 7.58334 3.98153 7.58334 4.66668Z" fill="black" opacity="0.4"/>
+                </svg>
+              </span>
+            </div>
+            <div class="cart-item__info">
+              <p class="cart-item__name">프리미엄 스포츠 워터보틀 500ml — 실버</p>
+              <p class="cart-item__option">옵션: 실버 / 500ml</p>
+              <div class="cart-item__price-row">
+                <div class="cart-item__price">
+                  <span class="cart-item__final-price">18,000원</span>
+                </div>
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="changeQty(this, -1)" aria-label="수량 감소">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <line x1="4.25" y1="12.25" x2="19.75" y2="12.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <span class="qty-value">1</span>
+                  <button class="qty-btn" onclick="changeQty(this, 1)" aria-label="수량 증가">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M11.25 12.75H4.25C4.0375 12.75 3.85942 12.6781 3.71575 12.5343C3.57192 12.3904 3.5 12.2122 3.5 11.9998C3.5 11.7871 3.57192 11.609 3.71575 11.4655C3.85942 11.3218 4.0375 11.25 4.25 11.25H11.25V4.25C11.25 4.0375 11.3219 3.85942 11.4658 3.71575C11.6096 3.57192 11.7878 3.5 12.0002 3.5C12.2129 3.5 12.391 3.57192 12.5345 3.71575C12.6782 3.85942 12.75 4.0375 12.75 4.25V11.25H19.75C19.9625 11.25 20.1406 11.3219 20.2843 11.4658C20.4281 11.6096 20.5 11.7878 20.5 12.0002C20.5 12.2129 20.4281 12.391 20.2843 12.5345C20.1406 12.6782 19.9625 12.75 19.75 12.75H12.75V19.75C12.75 19.9625 12.6781 20.1406 12.5343 20.2843C12.3904 20.4281 12.2122 20.5 11.9998 20.5C11.7871 20.5 11.609 20.4281 11.4655 20.2843C11.3218 20.1406 11.25 19.9625 11.25 19.75V12.75Z" fill="currentColor"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-delete" aria-label="상품 삭제" onclick="deleteItem(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.58334 4.66668V5.75001H3.75C3.33579 5.75001 3 6.08579 3 6.50001C3 6.91422 3.33579 7.25001 3.75 7.25001H4.83334V19.3333C4.83334 20.0185 5.10551 20.6756 5.58998 21.16C6.07444 21.6445 6.73153 21.9167 7.41667 21.9167H16.5833C17.2685 21.9167 17.9256 21.6445 18.41 21.16C18.8945 20.6756 19.1667 20.0185 19.1667 19.3333V7.25001H20.25C20.6642 7.25001 21 6.91422 21 6.50001C21 6.08579 20.6642 5.75001 20.25 5.75001H16.4167V4.66668C16.4167 3.98153 16.1445 3.32445 15.66 2.83998C15.1756 2.35552 14.5185 2.08334 13.8333 2.08334H10.1667C9.48153 2.08334 8.82445 2.35552 8.33998 2.83998C7.85551 3.32445 7.58334 3.98153 7.58334 4.66668ZM10.9167 11.0833C10.9167 10.6691 10.5809 10.3333 10.1667 10.3333C9.75245 10.3333 9.41666 10.6691 9.41666 11.0833V16.5833C9.41666 16.9976 9.75245 17.3333 10.1667 17.3333C10.5809 17.3333 10.9167 16.9976 10.9167 16.5833V11.0833ZM13.8333 10.3333C14.2475 10.3333 14.5833 10.6691 14.5833 11.0833V16.5833C14.5833 16.9976 14.2475 17.3333 13.8333 17.3333C13.4191 17.3333 13.0833 16.9976 13.0833 16.5833V11.0833C13.0833 10.6691 13.4191 10.3333 13.8333 10.3333Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <!-- Seller 2 footer -->
+          <div class="seller-footer">
+            <div class="seller-footer__row">
+              <span class="seller-footer__label">배송비</span>
+              <span class="seller-footer__value">3,000원</span>
+            </div>
+            <div class="seller-footer__divider"></div>
+            <div class="seller-footer__row">
+              <span class="seller-footer__total-label">판매자 합계</span>
+              <span class="seller-footer__total-value">21,000원</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notice (mobile only inside scroll, desktop shows in sidebar) -->
+        <div class="cart-notice mobile-only">
+          <p class="cart-notice__title">유의사항</p>
+          <ul class="cart-notice__list">
+            <li>상품은 최대 30일간 장바구니에 보관됩니다.</li>
+            <li>판매자 배송 상품은 각 판매자의 배송 정책을 따릅니다.</li>
+            <li>쿠폰은 결제 단계에서 적용할 수 있습니다.</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- Order Summary + CTA (right sidebar on desktop) -->
+      <div class="order-summary-wrap">
+
+        <!-- Coupon / Points -->
+        <div class="benefit-card">
+          <p class="benefit-card__title">할인 혜택</p>
+          <div class="benefit-row">
+            <span class="benefit-row__label">쿠폰</span>
+            <div class="benefit-row__right">
+              <span class="benefit-row__value">1장 보유</span>
+              <button class="btn-small">적용</button>
+            </div>
+          </div>
+          <div class="benefit-row">
+            <span class="benefit-row__label">포인트</span>
+            <div class="benefit-row__right">
+              <span class="benefit-row__value">2,400P 보유</span>
+              <button class="btn-small">사용</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Price Summary -->
+        <div class="order-summary">
+          <p class="order-summary__title">결제 금액</p>
+          <div class="order-summary__rows">
+            <div class="order-row">
+              <span class="order-row__label">상품 금액</span>
+              <span class="order-row__value">155,500원</span>
+            </div>
+            <div class="order-row">
+              <span class="order-row__label">할인 금액</span>
+              <span class="order-row__value discount">−16,200원</span>
+            </div>
+            <div class="order-row">
+              <span class="order-row__label">배송비</span>
+              <span class="order-row__value">6,000원</span>
+            </div>
+          </div>
+          <div class="order-summary__divider"></div>
+          <div class="order-total-row">
+            <span class="order-total-row__label">최종 결제 금액</span>
+            <span class="order-total-row__price">145,300원</span>
+          </div>
+        </div>
+
+        <!-- Notice (desktop only) -->
+        <div class="cart-notice desktop-only" style="flex-direction:column;">
+          <p class="cart-notice__title">유의사항</p>
+          <ul class="cart-notice__list">
+            <li>상품은 최대 30일간 장바구니에 보관됩니다.</li>
+            <li>판매자 배송 상품은 각 판매자의 배송 정책을 따릅니다.</li>
+            <li>쿠폰은 결제 단계에서 적용할 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <!-- CTA (desktop) -->
+        <div class="desktop-only" style="flex-direction:column;">
+          <button class="btn-order" onclick="handleOrder()">
+            4개 상품 주문하기
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- CTA (mobile sticky bottom) -->
+  <div class="cta-section mobile-only">
+    <div class="cta-mini-summary">
+      <span class="cta-mini-summary__label">최종 결제 금액</span>
+      <span class="cta-mini-summary__price">145,300원</span>
+    </div>
+    <button class="btn-order" onclick="handleOrder()">
+      4개 상품 주문하기
+    </button>
+  </div>
+
+  <script>
+    function changeQty(btn, delta) {
+      const control = btn.closest('.qty-control');
+      const valueEl = control.querySelector('.qty-value');
+      let val = parseInt(valueEl.textContent) + delta;
+      if (val < 1) val = 1;
+      if (val > 99) val = 99;
+      valueEl.textContent = val;
+    }
+
+    function deleteItem(btn) {
+      const item = btn.closest('.cart-item');
+      item.style.transition = 'opacity 0.2s, max-height 0.25s';
+      item.style.opacity = '0';
+      item.style.overflow = 'hidden';
+      item.style.maxHeight = item.offsetHeight + 'px';
+      requestAnimationFrame(() => {
+        item.style.maxHeight = '0';
+        item.style.padding = '0';
+      });
+      setTimeout(() => item.remove(), 280);
+    }
+
+    function deleteSelected() {
+      document.querySelectorAll('.cart-item').forEach(item => {
+        const cb = item.querySelector('.checkbox[data-item]');
+        if (cb && cb.classList.contains('checked')) deleteItem(item.querySelector('.btn-delete'));
+      });
+    }
+
+    function handleOrder() {
+      alert('주문 페이지로 이동합니다.');
+    }
+
+    // Toggle checkboxes
+    document.querySelectorAll('.checkbox-wrap').forEach(wrap => {
+      wrap.addEventListener('click', () => {
+        const cb = wrap.querySelector('.checkbox');
+        cb.classList.toggle('checked');
+      });
+    });
+  </script>
+</body>
+</html>

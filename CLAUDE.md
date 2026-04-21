@@ -9,6 +9,8 @@ This repository is the single source of truth for the Vuddy design system.
 - `components/` — per-component specs and Figma links
 - `icons/catalog.md` — icon name → SVG path mapping
 - `icons/svg/` — SVG icon files
+- `logos/catalog.md` — brand logo name → SVG path + Figma links
+- `logos/svg/` — brand logo SVGs (wordmark, logographic, app icon, symbol variants). Refresh: `FIGMA_TOKEN=… node scripts/download-logos.js`
 
 ## Figma
 - Foundation file: https://www.figma.com/design/ikUaHBnl5dZRmpiGEwLgZW/Vuddy-Foundation
