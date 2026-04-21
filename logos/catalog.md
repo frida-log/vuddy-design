@@ -2,7 +2,7 @@
 
 Vuddy-Component 파일의 로고 전용 컴포넌트입니다. UI 아이콘(`icons/svg/`)과 구분해 브랜드 로고만 모아 두었습니다.
 
-> **참고:** `etc_logo_*` 네 종은 `icons/svg/`와 동일한 Figma export를 `logos/svg/`에 두었습니다. `etc_vuddywordmark`, `etc_logographic`, `etc_appicon` 세 종은 이 환경에서 Figma API로 받지 못해, 아래 명령을 **로컬에서 한 번** 실행하면 같은 폴더에 생성됩니다.
+> **참고:** `etc_logo_*` 네 종은 `icons/svg/`와 동일한 Figma export를 `logos/svg/`에 두었습니다. `etc_vuddywordmark.svg`는 화면용 플레이스홀더가 포함되어 있으며, Figma 컴포넌트와 픽셀 단위로 맞추려면 아래 명령으로 덮어쓰면 됩니다. `etc_logographic`, `etc_appicon`도 동일 스크립트로 생성합니다.
 
 ## 파일 ↔ Figma
 

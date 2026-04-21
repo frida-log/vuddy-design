@@ -43,11 +43,10 @@
       filter: brightness(0) invert(1);
     }
 
-    /* Desktop: logos/svg 심볼(96 기준 비율 유지, 높이 맞춤) */
+    /* Desktop: etc_vuddywordmark 90×24 (components/WebMenu.md) */
     .topbar-wordmark-single {
-      width: auto;
-      height: 32px;
-      max-width: 120px;
+      width: 90px;
+      height: 24px;
       display: none;
       object-fit: contain;
       object-position: left center;
@@ -403,9 +402,9 @@
       <a href="../index.html" aria-label="Vuddy 홈">
         <img class="topbar-logo-img" src="../icons/svg/fill_logo_vuddy.svg" alt="Vuddy" />
       </a>
-      <!-- Desktop: 레포 로고 SVG (워드마크는 logos/svg/etc_vuddywordmark.svg — download-logos.js) -->
+      <!-- Desktop: Vuddy 워드마크 (logos/svg/etc_vuddywordmark.svg) -->
       <a href="../index.html" aria-label="Vuddy 홈">
-        <img class="topbar-wordmark-single" src="../logos/svg/etc_logo_basic.svg" alt="Vuddy" />
+        <img class="topbar-wordmark-single" src="../logos/svg/etc_vuddywordmark.svg" alt="Vuddy" />
       </a>
       <div class="topbar-divider"></div>
       <!-- Channel pill -->
@@ -442,7 +441,7 @@
   <!-- Cover photo -->
   <div class="ch-cover">
     <img id="cover-img"
-      src="../icons/svg/fill_photo.svg"
+      src="https://www.figma.com/api/mcp/asset/244b4116-5554-4b3a-83a2-ff13e8f9ccd6"
       alt="케이팝 데몬 헌터스 커버" />
   </div>
   <div class="ch-dim-top"></div>
@@ -750,8 +749,9 @@
 
 <script>
   /* ── Responsive: swap cover image on desktop ── */
-  const COVER_MOBILE = '../icons/svg/fill_photo.svg';
-  const COVER_DESKTOP = '../icons/svg/fill_photo.svg';
+  /* 이전 버전과 동일한 상단 커버 래스터 (Figma MCP export) */
+  const COVER_MOBILE = 'https://www.figma.com/api/mcp/asset/244b4116-5554-4b3a-83a2-ff13e8f9ccd6';
+  const COVER_DESKTOP = 'https://www.figma.com/api/mcp/asset/6587782a-db23-4fad-a4f7-c5629e020c9c';
 
   function applyBreakpoint() {
     const desktop = window.matchMedia('(min-width: 768px)').matches;
