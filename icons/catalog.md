@@ -2,7 +2,7 @@
 
 > Figma 원본: [Vuddy-Component](https://www.figma.com/design/d7eKp1IERJQXyDS4jLqnMX/Vuddy-Component)
 > SVG 파일 위치: `icons/svg/`
-> 총 **155개** 아이콘
+> 총 **160개** 아이콘
 
 아이콘 추가 시 → SVG를 `icons/svg/` 에 저장 후 이 목록에 행 추가
 
@@ -15,6 +15,7 @@
 | `outline_` | 선형(stroke) 아이콘 |
 | `fill_` | 채움(filled) 아이콘 |
 | `etc_logo_` | 외부 브랜드 로고 |
+| `etc_pay_` | PG/간편결제 마크 |
 
 ---
 
@@ -190,3 +191,15 @@
 | `etc_logo_wh` | [etc_logo_wh.svg](svg/etc_logo_wh.svg) | Vuddy 로고 화이트 |
 | `etc_logo_wh_circle` | [etc_logo_wh_circle.svg](svg/etc_logo_wh_circle.svg) | Vuddy 로고 화이트 원형 |
 | `etc_logo_x` | [etc_logo_x.svg](svg/etc_logo_x.svg) | X(Twitter) 로그인 |
+
+---
+
+## etc_pay_ 아이콘 (5개)
+
+| Name | File | 사용처 |
+|------|------|--------|
+| `etc_pay_naver` | [etc_pay_naver.svg](svg/etc_pay_naver.svg) | 네이버페이 |
+| `etc_pay_samsung` | [etc_pay_samsung.svg](svg/etc_pay_samsung.svg) | 삼성페이 |
+| `etc_pay_payco` | [etc_pay_payco.svg](svg/etc_pay_payco.svg) | PAYCO |
+| `etc_pay_kakao` | [etc_pay_kakao.svg](svg/etc_pay_kakao.svg) | 카카오페이 |
+| `etc_pay_toss` | [etc_pay_toss.svg](svg/etc_pay_toss.svg) | 토스페이 (`<image>` → [etc_pay_toss_mark.png](svg/etc_pay_toss_mark.png) 동일 폴더 유지) |

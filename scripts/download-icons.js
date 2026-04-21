@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Vuddy Icon Downloader
- * Figma REST API를 사용해 outline_, fill_, etc_logo_ 아이콘을 SVG로 export합니다.
+ * Figma REST API를 사용해 outline_, fill_, etc_logo_, etc_pay_ 아이콘을 SVG로 export합니다.
+ * (`etc_pay_toss.svg` + `etc_pay_toss_mark.png`는 래스터 포함으로 수동 유지 — 이 스크립트에 미포함)
  *
  * 사용법:
  *   FIGMA_TOKEN=your_token node scripts/download-icons.js
@@ -24,7 +25,7 @@ if (!TOKEN) {
   process.exit(1);
 }
 
-// All 155 icon components (outline_, fill_, etc_logo_)
+// 159 Figma-exported components (outline_, fill_, etc_logo_, etc_pay_* 벡터 4종); etc_pay_toss는 수동
 const ICONS = [
   { id: '57:966',    name: 'fill_like' },
   { id: '692:6',     name: 'fill_warning' },
@@ -181,6 +182,10 @@ const ICONS = [
   { id: '9379:2455', name: 'fill_chat_manager' },
   { id: '9068:1524', name: 'fill_heart' },
   { id: '9482:2878', name: 'outline_reply' },
+  { id: '9755:2623', name: 'etc_pay_naver' },
+  { id: '9755:2622', name: 'etc_pay_samsung' },
+  { id: '9755:2621', name: 'etc_pay_payco' },
+  { id: '9755:2620', name: 'etc_pay_kakao' },
 ];
 
 function fetch(url, options = {}) {
