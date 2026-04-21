@@ -350,7 +350,9 @@
       font-family: inherit; font-size: var(--font-size-body-xs); font-weight: 600;
       border: none; border-radius: var(--radius-base); cursor: pointer;
     }
-    .btn-write svg { width: 16px; height: 16px; }
+    .btn-write svg,
+    .btn-write img { width: 16px; height: 16px; }
+    .btn-write img { filter: brightness(0) invert(1); }
 
     /* Pagination */
     .pagination {
