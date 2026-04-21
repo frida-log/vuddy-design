@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <!--
-  채널 홈 / 포스트 — Master Top bar
-  · Desktop 1920: https://www.figma.com/design/eZY4FjhlzhBoHs8QEy081d/-Master--%F0%9F%AB%A5-Empty-%EB%AA%A8%EC%9D%8C?node-id=23002-12194&m=dev (Top bar instance 23002:12214)
-  · Mobile 360: https://www.figma.com/design/eZY4FjhlzhBoHs8QEy081d/-Master--%F0%9F%AB%A5-Empty-%EB%AA%A8%EC%9D%8C?node-id=23002-12328&m=dev (Top bar instance 23002:12340)
-  로고: TopBar.md — Lead 모바일 `topbar-lead-home`(fill_logo_vuddy 24×24), 데스크톱 `vuddywordmark`(etc_vuddywordmark 90×24)
+  채널 홈 / 포스트 레이아웃 스펙 (Master)
+  · Desktop: https://www.figma.com/design/eZY4FjhlzhBoHs8QEy081d/-Master--%F0%9F%AB%A5-Empty-%EB%AA%A8%EC%9D%8C?node-id=23002-12194&m=dev
+  · Mobile:  https://www.figma.com/design/eZY4FjhlzhBoHs8QEy081d/-Master--%F0%9F%AB%A5-Empty-%EB%AA%A8%EC%9D%8C?node-id=23002-12328&m=dev
 -->
 <html lang="ko">
 <head>
@@ -36,40 +35,22 @@
       max-width: 680px; margin: 0 auto;
     }
     .topbar-lead { display: flex; align-items: center; gap: var(--gap-2xl); }
-    .topbar-lead-home,
-    .topbar-lead-vuddywordmark {
-      text-decoration: none;
-      color: inherit;
-    }
 
-    /* TopBar.md type=main — topbar-lead-home: Vuddy 로고 24×24 (모바일) */
-    .topbar-lead-home {
-      display: flex;
-      align-items: center;
-      line-height: 0;
-    }
-    .topbar-lead-home img {
-      width: 24px;
-      height: 24px;
-      display: block;
-    }
-
-    /* vuddywordmark = etc_vuddywordmark 90×24 (데스크톱, WebMenu.md / logos) */
-    .topbar-lead-vuddywordmark {
-      display: none;
-      align-items: center;
-      line-height: 0;
-      flex-shrink: 0;
-    }
-    .topbar-lead-vuddywordmark__svg {
-      display: block;
-      width: 90px;
-      height: 24px;
-    }
-
-    /* 로고는 invert 금지. 우측 아이콘만 흰색 처리 */
+    /* Mobile logo: V icon image */
+    .topbar-logo-img { width: 24px; height: 24px; display: block; }
+    /* 로고 SVG는 invert 금지(실선이 메워져 흰 블록처럼 보임). 아이콘만 흰색 처리 */
     .tb-icon img {
       filter: brightness(0) invert(1);
+    }
+
+    /* Desktop: etc_vuddywordmark 90×24 (components/WebMenu.md) */
+    .topbar-wordmark-single {
+      width: 90px;
+      height: 24px;
+      display: none;
+      object-fit: contain;
+      object-position: left center;
+      flex-shrink: 0;
     }
     .topbar-divider {
       width: 1px; height: 24px;
@@ -118,8 +99,8 @@
     }
 
     @media (min-width: 768px) {
-      .topbar-lead-home { display: none; }
-      .topbar-lead-vuddywordmark { display: flex; }
+      .topbar-logo-img { display: none; }
+      .topbar-wordmark-single { display: block; }
       .topbar-divider { display: block; }
       .topbar-channel-pill { display: flex; }
     }
@@ -417,15 +398,13 @@
 <header class="topbar">
   <div class="topbar-inner">
     <div class="topbar-lead">
-      <!-- topbar-lead-home: TopBar.md — fill_logo_vuddy 24×24 (Master 모바일 Top bar) -->
-      <a href="../index.html" class="topbar-lead-home" aria-label="Vuddy 홈">
-        <img src="../icons/svg/fill_logo_vuddy.svg" width="24" height="24" decoding="async" alt="" />
+      <!-- Mobile: V mark (icons/svg) -->
+      <a href="../index.html" aria-label="Vuddy 홈">
+        <img class="topbar-logo-img" src="../icons/svg/fill_logo_vuddy.svg" alt="Vuddy" />
       </a>
-      <!-- vuddywordmark / etc_vuddywordmark 90×24 — 인라인 SVG(Pretendard). Figma 벡터는 download-logos.js 로 logos/svg 덮어쓰기 -->
-      <a href="../index.html" class="topbar-lead-vuddywordmark" aria-label="Vuddy 홈">
-        <svg class="topbar-lead-vuddywordmark__svg" viewBox="0 0 90 24" width="90" height="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-          <text x="0" y="18" fill="#ffffff" font-family="Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="16" font-weight="800" letter-spacing="-0.03em">Vuddy</text>
-        </svg>
+      <!-- Desktop: Vuddy 워드마크 (logos/svg/etc_vuddywordmark.svg) -->
+      <a href="../index.html" aria-label="Vuddy 홈">
+        <img class="topbar-wordmark-single" src="../logos/svg/etc_vuddywordmark.svg" alt="Vuddy" />
       </a>
       <div class="topbar-divider"></div>
       <!-- Channel pill -->
