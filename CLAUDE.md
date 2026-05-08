@@ -4,6 +4,7 @@ This repository is the single source of truth for the Vuddy design system.
 
 ## Key files
 - `DESIGN.md` — full token reference, alias tokens, size tokens, component overview
+- `MOTION.md` — animation specs (duration, easing, platform impl: Web/iOS/Android)
 - `tokens/tokens.css` — CSS custom properties (import this in your project)
 - `tokens/tokens.json` — raw token data (Figma Variables export)
 - `components/` — per-component specs and Figma links
